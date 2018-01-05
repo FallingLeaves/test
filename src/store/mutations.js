@@ -24,11 +24,11 @@ const mutations = {
           v.specs === foodObj.specs
         ) {
           exist = true
-          console.log("存在", v, foodObj)
+          console.log("存在")
           v.food_num = foodObj.food_num
         }
         if (!exist) {
-          console.log("不存在", v, foodObj)
+          console.log("不存在")
           state.foodList.push(foodObj)
         }
       })
