@@ -1,0 +1,47 @@
+@bc: #e4e4e4;
+@blue: #3190e8;
+// 省略
+.ellipsis() {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+// 圆角
+.border-radius(@radius) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
+
+// 背景
+.bg(@url) {
+    background-image: @url;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+// 居中
+.center() {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// 宽高
+.wh(@width, @height) {
+    width: @width;
+    height: @height;
+}
+
+// 字体大小、颜色
+.sc(@size, @color: #fff) {
+    font-size: @size;
+    color: @color;
+}
+
+.flex(@type: space-between) {
+    display: flex;
+    justify-content: @type;
+}

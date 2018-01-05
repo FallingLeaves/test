@@ -1,0 +1,9 @@
+export const SET_LATITUDE = "SET_LATITUDE"
+
+export const SET_LONGITUDE = "SET_LONGITUDE"
+
+export const SET_GEOHASH = "SET_GEOHASH"
+
+export const SET_SHOPLIST = "SET_SHOPLIST"
+
+export const SET_FOODLIST = "SET_FOODLIST"
