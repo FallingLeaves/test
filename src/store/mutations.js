@@ -15,8 +15,8 @@ const mutations = {
   },
   [types.SET_FOODLIST](state, foodObj) {
     if (state.foodList.length) {
-      console.log(1)
       let exist = false
+      let index = 0
       state.foodList.forEach((v, i) => {
         if (
           v.restaurant_id === foodObj.restaurant_id &&
@@ -24,16 +24,15 @@ const mutations = {
           v.specs === foodObj.specs
         ) {
           exist = true
-          console.log("存在")
-          v.food_num = foodObj.food_num
-        }
-        if (!exist) {
-          console.log("不存在")
-          state.foodList.push(foodObj)
+          index = i
         }
       })
+      if (exist) {
+        state.foodList[index].food_num = foodObj.food_num
+      } else {
+        state.foodList.push(foodObj)
+      }
     } else {
-      console.log(2)
       state.foodList.push(foodObj)
     }
   }
