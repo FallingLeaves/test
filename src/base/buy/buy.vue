@@ -1,13 +1,14 @@
 <template>
   <div class="buy">
     <img src="src/assets/img/reduce.svg" alt="" @click="reduce" v-if="num>0||show">
-    <input type="number" id="" v-model="num" v-if="num>0||show">
+    <input type="number" id="" v-model="num" v-if="num>0||show" @change="change">
     <img src="src/assets/img/add.svg" alt="" @click="add">
   </div>
 </template>
 
 <script>
-import { mapMutations } from "vuex"
+import { mapMutations, mapGetters } from "vuex"
+import { setStore, getStore } from "@/config/mUtil"
 export default {
   props: {
     restaurant_id: {
@@ -54,6 +55,12 @@ export default {
       food: {}
     }
   },
+  computed: {
+    ...mapGetters(["buyFoodList"])
+  },
+  created() {
+    this.initNum()
+  },
   methods: {
     reduce() {
       this.num = Number(this.num) - 1
@@ -61,34 +68,61 @@ export default {
         this.num = 0
         this.show = false
       }
+      this.$emit("shopping", this.num)
     },
     add() {
       this.show = true
       this.num = Number(this.num) + 1
+      this.$emit("shopping", this.num)
+    },
+    change() {
+      this.$emit("shopping", this.num)
     },
     initFood() {
       this.food = {
-        restaurant_id: this.restaurant_id,//所属商店ID
-        category_id: this.category_id,//分类ID
-        category: this.category,//分类名称
-        food_id: this.food_id,//商品ID
-        food_name: this.food_name,//商品名称
-        specs: this.specs,//规格
-        food_num: this.num,//数量
-        price: this.price,//单价
-        packing_fee: this.packing_fee,//配送费
-        total: this.num * this.price + this.packing_fee,//总价
-        stock: this.stock//库存
+        restaurant_id: this.restaurant_id, //所属商店ID
+        category_id: this.category_id, //分类ID
+        category: this.category, //分类名称
+        food_id: this.food_id, //商品ID
+        food_name: this.food_name, //商品名称
+        specs: this.specs, //规格
+        food_num: this.num, //数量
+        price: this.price, //单价
+        packing_fee: this.packing_fee, //配送费
+        total: this.num * this.price + this.packing_fee, //总价
+        stock: this.stock //库存
       }
       this.setBuyFoodList(this.food)
     },
+    initNum() {
+      let buyFoodList = JSON.parse(getStore("buyFoodList"))
+      if (buyFoodList) {
+        buyFoodList.forEach((v1, i1) => {
+          if (v1.restaurant_id == this.restaurant_id) {
+            buyFoodList[i1].category.forEach((v2, i2) => {
+              if (v2.category_id == this.category_id) {
+                buyFoodList[i1].category[i2].items.forEach((v3, i3) => {
+                  if (v3.food_id == this.food_id) {
+                    let buyFood = buyFoodList[i1].category[i2].items[i3]
+                    // console.log(buyFood)
+                    this.num = buyFood.food_num
+                  }
+                })
+              }
+            })
+          }
+        })
+      }
+    },
     ...mapMutations({
       setBuyFoodList: "SET_BUYFOODLIST"
-    })
+    }),
+    
   },
   watch: {
     num() {
       this.initFood()
+      setStore("buyFoodList", this.buyFoodList)
     }
   }
 }

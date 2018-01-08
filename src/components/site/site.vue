@@ -50,7 +50,6 @@
 
 <script>
 import { mySite, foodSort } from "@/config/getData"
-import { setStore } from "@/config/mUtil"
 import myHeader from "@/components/header/header"
 import TabBar from "@/components/tabBar/tabBar"
 import Slider from "@/base/slider/slider"

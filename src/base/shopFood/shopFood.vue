@@ -53,7 +53,8 @@
                            :category_id="food.category_id"
                            :category="item.name"
                            :packing_fee="food.specfoods[0].packing_fee"
-                           :stock="food.specfoods[0].stock"></buy>
+                           :stock="food.specfoods[0].stock"
+                           @shopping="shopping"></buy>
                     </div>
                     <div v-if="food.specifications.length" class="size">
                       选规格
@@ -71,9 +72,9 @@
 
 <script>
 import Scroll from "@/base/scroll/scroll"
-import Buy from '@/base/buy/buy'
+import Buy from "@/base/buy/buy"
 import { foodList } from "@/config/getData"
-import { mapGetters } from 'vuex'
+import { getStore } from "@/config/mUtil"
 export default {
   props: {
     id: {
@@ -88,13 +89,14 @@ export default {
       currentIndex: 0,
       listenScroll: true,
       scrollY: 0,
-      listHeight: []
+      listHeight: [],
+      change: 0
     }
   },
-  computed: {
-  },
+  computed: {},
   created() {
     this.getFoodList()
+    this.initCategoryNum()
   },
   mounted() {},
   methods: {
@@ -126,6 +128,33 @@ export default {
         listHeight.push(height)
       }
       this.listHeight = listHeight
+    },
+    initCategoryNum() {
+      let buyFoodList = JSON.parse(getStore("buyFoodList"))
+      let currentShopBuyFood = []
+      let category = []
+      if (!buyFoodList) {
+        category.push(0)
+        console.log(category)
+        return
+      }
+      buyFoodList.forEach((v1, i1) => {
+        if (v1.restaurant_id == this.id) {
+          currentShopBuyFood = buyFoodList[i1]
+        }
+      })
+      console.log(currentShopBuyFood)
+      if (!currentShopBuyFood.category) {
+        return
+      }
+      currentShopBuyFood.category.forEach(v => {
+        category.push(v.items.length)
+      })
+      console.log(category)
+    },
+    shopping(num) {
+      // console.log(num)
+      this.change = this.change + 1
     }
   },
   components: {
@@ -152,6 +181,9 @@ export default {
         }
       }
       this.currentIndex = this.listHeight.length - 1
+    },
+    change() {
+      this.initCategoryNum()
     }
   }
 }
@@ -212,10 +244,10 @@ export default {
                 font-weight: 700;
               }
               div:nth-of-type(2) {
-                .sc(.12rem);
+                .sc(0.12rem);
                 .border-radius(10px);
                 padding: 2px 5px;
-                transform: scale(.8);
+                transform: scale(0.8);
               }
             }
             > div:nth-of-type(1) {
@@ -237,18 +269,18 @@ export default {
               div:nth-of-type(1) {
                 span {
                   &:nth-of-type(1) {
-                    .sc(.12rem,#f60);
+                    .sc(0.12rem,#f60);
                   }
                   &:nth-of-type(2) {
-                    .sc(.16rem,#f60);
+                    .sc(0.16rem,#f60);
                   }
                 }
               }
               img {
-                .wh(.2rem, .2rem);
+                .wh(0.2rem, 0.2rem);
               }
               .size {
-                .sc(.14rem);
+                .sc(0.14rem);
                 padding: 2px 5px;
                 background-color: @blue;
                 .border-radius(10px);
