@@ -6,4 +6,4 @@ export const SET_GEOHASH = "SET_GEOHASH"
 
 export const SET_SHOPLIST = "SET_SHOPLIST"
 
-export const SET_FOODLIST = "SET_FOODLIST"
+export const SET_BUYFOODLIST = "SET_BUYFOODLIST"

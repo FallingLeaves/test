@@ -25,6 +25,26 @@ export default {
     specs: {
       type: String,
       default: null
+    },
+    price: {
+      type: Number,
+      default: null
+    },
+    category_id: {
+      type: Number,
+      default: null
+    },
+    category: {
+      type: String,
+      default: null
+    },
+    packing_fee: {
+      type: Number,
+      default: null
+    },
+    stock: {
+      type: Number,
+      default: null
     }
   },
   data() {
@@ -48,20 +68,26 @@ export default {
     },
     initFood() {
       this.food = {
-        restaurant_id: this.restaurant_id,
-        food_id: this.food_id,
-        food_name: this.food_name,
-        specs: this.specs,
-        food_num: this.num
+        restaurant_id: this.restaurant_id,//所属商店ID
+        category_id: this.category_id,//分类ID
+        category: this.category,//分类名称
+        food_id: this.food_id,//商品ID
+        food_name: this.food_name,//商品名称
+        specs: this.specs,//规格
+        food_num: this.num,//数量
+        price: this.price,//单价
+        packing_fee: this.packing_fee,//配送费
+        total: this.num * this.price + this.packing_fee,//总价
+        stock: this.stock//库存
       }
-      this.setFoodList(this.food)
+      this.setBuyFoodList(this.food)
     },
     ...mapMutations({
-      setFoodList: "SET_FOODLIST"
+      setBuyFoodList: "SET_BUYFOODLIST"
     })
   },
   watch: {
-    num: function() {
+    num() {
       this.initFood()
     }
   }

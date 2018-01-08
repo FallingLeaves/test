@@ -48,7 +48,12 @@
                       <buy :restaurant_id="food.restaurant_id" 
                            :food_id="food.specfoods[0].food_id"
                            :food_name="food.specfoods[0].name"
-                           :specs="food.specfoods[0].specs_name"></buy>
+                           :specs="food.specfoods[0].specs_name"
+                           :price="food.specfoods[0].price"
+                           :category_id="food.category_id"
+                           :category="item.name"
+                           :packing_fee="food.specfoods[0].packing_fee"
+                           :stock="food.specfoods[0].stock"></buy>
                     </div>
                     <div v-if="food.specifications.length" class="size">
                       选规格
@@ -68,6 +73,7 @@
 import Scroll from "@/base/scroll/scroll"
 import Buy from '@/base/buy/buy'
 import { foodList } from "@/config/getData"
+import { mapGetters } from 'vuex'
 export default {
   props: {
     id: {
@@ -84,6 +90,8 @@ export default {
       scrollY: 0,
       listHeight: []
     }
+  },
+  computed: {
   },
   created() {
     this.getFoodList()

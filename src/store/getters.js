@@ -6,4 +6,4 @@ export const geohash = state => state.geohash
 
 export const shopList = state => state.shopList
 
-export const foodList = state => state.foodList
+export const buyFoodList = state => state.buyFoodList
