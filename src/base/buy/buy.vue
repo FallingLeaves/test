@@ -97,7 +97,7 @@ export default {
             buyFoodList[i1].category.forEach((v2, i2) => {
               if (v2.category_id == this.category_id) {
                 buyFoodList[i1].category[i2].items.forEach((v3, i3) => {
-                  if (v3.food_id == this.food_id) {
+                  if (v3.food_id == this.food_id && v3.specs == this.specs) {
                     let buyFood = buyFoodList[i1].category[i2].items[i3]
                     // console.log(buyFood)
                     this.num = buyFood.food_num
@@ -123,6 +123,15 @@ export default {
         food_id: this.food_id,
         category_id: this.category_id
       })
+    },
+    specs() {
+      this.initNum()
+    },
+    food_id() {
+      this.initNum()
+    },
+    category_id() {
+      this.initNum()
     }
   }
 }
@@ -132,6 +141,7 @@ export default {
 @import "../../style/mixin.less";
 .buy {
   .flex();
+  align-items: center;
   img {
     .wh(0.2rem, 0.2rem);
   }

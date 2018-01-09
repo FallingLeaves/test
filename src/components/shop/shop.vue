@@ -48,7 +48,7 @@ export default {
   right: 0;
   height: 100%;
   overflow: hidden;
-  .flex();
+  .flex(flex-start);
   flex-direction: column;
   > nav {
     background-color: #fff;

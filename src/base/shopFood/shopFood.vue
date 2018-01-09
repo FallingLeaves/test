@@ -56,7 +56,7 @@
                            :stock="food.specfoods[0].stock"
                            @shopping="shopping"></buy>
                     </div>
-                    <div v-if="food.specifications.length" class="size">
+                    <div v-if="food.specifications.length" class="size" @click="chooseSPEC(food, item.name, food.restaurant_id)">
                       选规格
                     </div>
                   </div>
@@ -66,6 +66,43 @@
           </section>
         </div>
       </scroll>
+    </div>
+    <div v-show="show" class="show-SPEC">
+      <section v-if="specfood">
+        <div>
+          <header>
+            {{specfood.name}}
+            <img src="src/assets/img/close.svg" alt="" @click="close">
+          </header>
+          <div class="info">
+            <p>规格</p>
+            <ul>
+              <li v-for="(item, index) in specfood.specfoods" 
+                  :key="index" 
+                  :class="{active:index==specIndex}"
+                  @click="specIndex=index">
+                {{item.specs_name}}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <footer>
+          <div>
+            ￥<span v-if="specfood.specfoods">{{specfood.specfoods[specIndex].price}}</span>
+          </div>
+          <buy  v-if="specfood.specfoods"
+                :restaurant_id="specfood.restaurant_id" 
+                :food_id="specfood.specfoods[specIndex].food_id"
+                :food_name="specfood.name"
+                :specs="specfood.specfoods[specIndex].specs_name"
+                :price="specfood.specfoods[specIndex].price"
+                :category_id="specfood.category_id"
+                :category="specfood.category"
+                :packing_fee="specfood.specfoods[specIndex].packing_fee"
+                :stock="specfood.specfoods[specIndex].stock"
+                @shopping="shopping"></buy>
+        </footer>
+      </section>
     </div>
   </div>
 </template>
@@ -92,7 +129,10 @@ export default {
       scrollY: 0,
       listHeight: [],
       categoryNum: [],
-      currentShopBuyFood: []
+      currentShopBuyFood: [],
+      specfood: {},
+      specIndex: 0,
+      show: false
     }
   },
   computed: {
@@ -146,7 +186,7 @@ export default {
       this.categoryNum.forEach((v1, i1) => {
         v1.num = 0
         this.currentShopBuyFood.forEach((v2, i2) => {
-          if(v1.category_id == v2.category_id) {
+          if (v1.category_id == v2.category_id) {
             let sum = 0
             this.currentShopBuyFood[i2].items.forEach(v => {
               sum += v.food_num
@@ -164,9 +204,18 @@ export default {
         })
       })
     },
+    chooseSPEC(obj, name, id) {
+      this.specfood = obj
+      this.specfood.category = name
+      this.specfood.restaurant_id = id
+      this.show = true
+    },
     shopping(obj) {
       this.initCategoryNum()
       // console.log(obj)
+    },
+    close() {
+      this.show = false
     }
   },
   components: {
@@ -220,8 +269,8 @@ export default {
           background-color: #ff4616;
           color: #fff;
           line-height: 1em;
-          min-width: .15rem;
-          min-height: .15rem;
+          min-width: 0.15rem;
+          min-height: 0.15rem;
           .border-radius(50%);
         }
       }
@@ -330,6 +379,71 @@ export default {
             left: 10px;
             top: 10px;
           }
+        }
+      }
+    }
+  }
+}
+.show-SPEC {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 10;
+  > section {
+    > div {
+      background-color: #fff;
+      padding: 0.1rem;
+    }
+    width: 70%;
+    .border-radius(5px);
+    .center();
+    header {
+      position: relative;
+      .sc(0.16rem, #000);
+      text-align: center;
+      img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        .wh(20px, 20px);
+      }
+    }
+    .info {
+      margin: 0.1rem 0;
+      p {
+        .sc(0.14rem, #666);
+        padding: 10px 0;
+      }
+      ul {
+        .flex(flex-start);
+        li {
+          .sc(0.14rem, #333);
+          padding: 5px 10px;
+          min-width: 40px;
+          min-height: 20px;
+          text-align: center;
+          border: 1px solid #ddd;
+          .border-radius(5px);
+          margin-right: 0.1rem;
+        }
+        .active {
+          color: @blue;
+          border-color: @blue
+        }
+      }
+    }
+    footer {
+      padding: .1rem;
+      background-color: #f9f9f9;
+      .flex();
+      > div {
+        .sc(0.12rem, #ff6000);
+        span {
+          .sc(0.18rem, #ff6000);
+          font-weight: 700;
         }
       }
     }
