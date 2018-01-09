@@ -11,7 +11,7 @@
                 :class="{active:currentIndex==index}"
                 @click="select(index)"
                 >
-                {{item.name}}
+                {{item.name}}<span v-show="categoryNum[index].num>0">{{categoryNum[index].num}}</span>
             </li>
           </ul>
         </div>
@@ -75,6 +75,7 @@ import Scroll from "@/base/scroll/scroll"
 import Buy from "@/base/buy/buy"
 import { foodList } from "@/config/getData"
 import { getStore } from "@/config/mUtil"
+import { mapGetters } from "vuex"
 export default {
   props: {
     id: {
@@ -90,20 +91,22 @@ export default {
       listenScroll: true,
       scrollY: 0,
       listHeight: [],
-      change: 0
+      categoryNum: [],
+      currentShopBuyFood: []
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters(["buyFoodList"])
+  },
   created() {
     this.getFoodList()
-    this.initCategoryNum()
   },
-  mounted() {},
   methods: {
     getFoodList() {
       foodList(this.id).then(
         res => {
           this.foodList = res.body
+          this.initCategory()
         },
         err => {
           console.log(err)
@@ -130,31 +133,40 @@ export default {
       this.listHeight = listHeight
     },
     initCategoryNum() {
-      let buyFoodList = JSON.parse(getStore("buyFoodList"))
-      let currentShopBuyFood = []
-      let category = []
-      if (!buyFoodList) {
-        category.push(0)
-        console.log(category)
-        return
+      if (!this.buyFoodList.length) {
+        this.categoryNum.forEach(v => {
+          v.num = 0
+        })
       }
-      buyFoodList.forEach((v1, i1) => {
+      this.buyFoodList.forEach((v1, i1) => {
         if (v1.restaurant_id == this.id) {
-          currentShopBuyFood = buyFoodList[i1]
+          this.currentShopBuyFood = this.buyFoodList[i1].category
         }
       })
-      console.log(currentShopBuyFood)
-      if (!currentShopBuyFood.category) {
-        return
-      }
-      currentShopBuyFood.category.forEach(v => {
-        category.push(v.items.length)
+      this.categoryNum.forEach((v1, i1) => {
+        v1.num = 0
+        this.currentShopBuyFood.forEach((v2, i2) => {
+          if(v1.category_id == v2.category_id) {
+            let sum = 0
+            this.currentShopBuyFood[i2].items.forEach(v => {
+              sum += v.food_num
+            })
+            this.categoryNum[i1].num = sum
+          }
+        })
       })
-      console.log(category)
     },
-    shopping(num) {
-      // console.log(num)
-      this.change = this.change + 1
+    initCategory() {
+      this.foodList.forEach(v => {
+        this.categoryNum.push({
+          category_id: v.id,
+          num: 0
+        })
+      })
+    },
+    shopping(obj) {
+      this.initCategoryNum()
+      // console.log(obj)
     }
   },
   components: {
@@ -181,9 +193,6 @@ export default {
         }
       }
       this.currentIndex = this.listHeight.length - 1
-    },
-    change() {
-      this.initCategoryNum()
     }
   }
 }
@@ -203,6 +212,18 @@ export default {
         padding: 0.2rem 0;
         text-align: center;
         border-bottom: 1px solid #e4e4e4;
+        position: relative;
+        > span {
+          position: absolute;
+          top: 0;
+          right: 0;
+          background-color: #ff4616;
+          color: #fff;
+          line-height: 1em;
+          min-width: .15rem;
+          min-height: .15rem;
+          .border-radius(50%);
+        }
       }
       .active {
         border-left: 4px solid @blue;

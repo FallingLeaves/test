@@ -1,7 +1,7 @@
 <template>
   <div class="buy">
     <img src="src/assets/img/reduce.svg" alt="" @click="reduce" v-if="num>0||show">
-    <input type="number" id="" v-model="num" v-if="num>0||show" @change="change">
+    <input type="number" id="" v-model="num" v-if="num>0||show">
     <img src="src/assets/img/add.svg" alt="" @click="add">
   </div>
 </template>
@@ -68,15 +68,10 @@ export default {
         this.num = 0
         this.show = false
       }
-      this.$emit("shopping", this.num)
     },
     add() {
       this.show = true
       this.num = Number(this.num) + 1
-      this.$emit("shopping", this.num)
-    },
-    change() {
-      this.$emit("shopping", this.num)
     },
     initFood() {
       this.food = {
@@ -123,6 +118,11 @@ export default {
     num() {
       this.initFood()
       setStore("buyFoodList", this.buyFoodList)
+      this.$emit("shopping", {
+        num: Number(this.num),
+        food_id: this.food_id,
+        category_id: this.category_id
+      })
     }
   }
 }
