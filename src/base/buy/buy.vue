@@ -101,6 +101,8 @@ export default {
                     let buyFood = buyFoodList[i1].category[i2].items[i3]
                     // console.log(buyFood)
                     this.num = buyFood.food_num
+                  } else {
+                    this.num = 0
                   }
                 })
               }
@@ -116,6 +118,7 @@ export default {
   },
   watch: {
     num() {
+      // this.initNum()
       this.initFood()
       setStore("buyFoodList", this.buyFoodList)
       this.$emit("shopping", {
@@ -126,12 +129,33 @@ export default {
     },
     specs() {
       this.initNum()
+      this.initFood()
+      setStore("buyFoodList", this.buyFoodList)
+      this.$emit("shopping", {
+        num: Number(this.num),
+        food_id: this.food_id,
+        category_id: this.category_id
+      })
     },
     food_id() {
       this.initNum()
+      this.initFood()
+      setStore("buyFoodList", this.buyFoodList)
+      this.$emit("shopping", {
+        num: Number(this.num),
+        food_id: this.food_id,
+        category_id: this.category_id
+      })
     },
     category_id() {
       this.initNum()
+      this.initFood()
+      setStore("buyFoodList", this.buyFoodList)
+      this.$emit("shopping", {
+        num: Number(this.num),
+        food_id: this.food_id,
+        category_id: this.category_id
+      })
     }
   }
 }

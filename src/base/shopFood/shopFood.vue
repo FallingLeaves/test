@@ -205,6 +205,7 @@ export default {
       })
     },
     chooseSPEC(obj, name, id) {
+      this.specIndex = 0
       this.specfood = obj
       this.specfood.category = name
       this.specfood.restaurant_id = id
