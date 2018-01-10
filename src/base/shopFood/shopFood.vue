@@ -141,7 +141,13 @@ export default {
   created() {
     this.getFoodList()
   },
+  mounted () {
+    this.initCategoryNum()
+  },
   methods: {
+    test() {
+      
+    },
     getFoodList() {
       foodList(this.id).then(
         res => {
@@ -173,14 +179,15 @@ export default {
       this.listHeight = listHeight
     },
     initCategoryNum() {
-      if (!this.buyFoodList.length) {
+      let buyFoodList = JSON.parse(getStore("buyFoodList"))
+      if (!buyFoodList.length) {
         this.categoryNum.forEach(v => {
           v.num = 0
         })
       }
-      this.buyFoodList.forEach((v1, i1) => {
+      buyFoodList.forEach((v1, i1) => {
         if (v1.restaurant_id == this.id) {
-          this.currentShopBuyFood = this.buyFoodList[i1].category
+          this.currentShopBuyFood = buyFoodList[i1].category
         }
       })
       this.categoryNum.forEach((v1, i1) => {

@@ -91,18 +91,18 @@ export default {
     },
     initNum() {
       let buyFoodList = JSON.parse(getStore("buyFoodList"))
+      // let buyFoodList = this.buyFoodList
+      console.log(buyFoodList)
       if (buyFoodList) {
         buyFoodList.forEach((v1, i1) => {
+          this.num = 0
           if (v1.restaurant_id == this.restaurant_id) {
             buyFoodList[i1].category.forEach((v2, i2) => {
               if (v2.category_id == this.category_id) {
                 buyFoodList[i1].category[i2].items.forEach((v3, i3) => {
-                  if (v3.food_id == this.food_id && v3.specs == this.specs) {
+                  if (v3.food_id == this.food_id) {
                     let buyFood = buyFoodList[i1].category[i2].items[i3]
-                    // console.log(buyFood)
                     this.num = buyFood.food_num
-                  } else {
-                    this.num = 0
                   }
                 })
               }
@@ -118,7 +118,6 @@ export default {
   },
   watch: {
     num() {
-      // this.initNum()
       this.initFood()
       setStore("buyFoodList", this.buyFoodList)
       this.$emit("shopping", {
@@ -127,36 +126,36 @@ export default {
         category_id: this.category_id
       })
     },
-    specs() {
-      this.initNum()
-      this.initFood()
-      setStore("buyFoodList", this.buyFoodList)
-      this.$emit("shopping", {
-        num: Number(this.num),
-        food_id: this.food_id,
-        category_id: this.category_id
-      })
-    },
+    // specs() {
+    //   this.initNum()
+    //   this.initFood()
+    //   setStore("buyFoodList", this.buyFoodList)
+    //   this.$emit("shopping", {
+    //     num: Number(this.num),
+    //     food_id: this.food_id,
+    //     category_id: this.category_id
+    //   })
+    // },
     food_id() {
       this.initNum()
-      this.initFood()
-      setStore("buyFoodList", this.buyFoodList)
-      this.$emit("shopping", {
-        num: Number(this.num),
-        food_id: this.food_id,
-        category_id: this.category_id
-      })
+      // this.initFood()
+      // setStore("buyFoodList", this.buyFoodList)
+      // this.$emit("shopping", {
+      //   num: Number(this.num),
+      //   food_id: this.food_id,
+      //   category_id: this.category_id
+      // })
     },
-    category_id() {
-      this.initNum()
-      this.initFood()
-      setStore("buyFoodList", this.buyFoodList)
-      this.$emit("shopping", {
-        num: Number(this.num),
-        food_id: this.food_id,
-        category_id: this.category_id
-      })
-    }
+    // category_id() {
+    //   this.initNum()
+    //   this.initFood()
+    //   setStore("buyFoodList", this.buyFoodList)
+    //   this.$emit("shopping", {
+    //     num: Number(this.num),
+    //     food_id: this.food_id,
+    //     category_id: this.category_id
+    //   })
+    // }
   }
 }
 </script>
