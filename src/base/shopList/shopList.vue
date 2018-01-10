@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section v-for="item in shopList" :key="item.id" @click="enter(item.id)">
+    <section v-for="(item, index) in shopList" :key="item.id" @click="enter(item.id, index)">
       <!-- <img :src="SHOP_IMG_BASE_PATH + item.image_path"> -->
       <img v-lazy="SHOP_IMG_BASE_PATH + item.image_path">
       <div class="info">
@@ -40,12 +40,14 @@
 import { shopList } from "@/config/getData"
 import Rating from '@/base/rating/rating'
 import { mapMutations } from "vuex"
+import Bus from '@/config/bus'
 export default {
   data () {
     return {
       SHOP_IMG_BASE_PATH: "http://cangdu.org:8001/img/",
       queryObj: {},
-      shopList: []
+      shopList: [],
+      shopIndex: 0
     }
   },
   props: {
@@ -92,6 +94,12 @@ export default {
   created () {
     this.initQueryObj()
   },
+  destroyed () {
+    Bus.$emit("packingFee", {
+      min_packing_fee: this.shopList[this.shopIndex].float_minimum_order_amount,
+      float_delivery_fee: this.shopList[this.shopIndex].float_delivery_fee
+    })
+  },
   methods: {
     initQueryObj() {//初始化请求参数
       Object.assign(this.queryObj, {
@@ -119,7 +127,8 @@ export default {
         }
       )
     },
-    enter(id) {
+    enter(id, index) {
+      this.shopIndex = index
       this.$router.push({ path: `/shop/${id}`})
     },
     ...mapMutations({

@@ -92,7 +92,7 @@ export default {
     initNum() {
       let buyFoodList = JSON.parse(getStore("buyFoodList"))
       // let buyFoodList = this.buyFoodList
-      console.log(buyFoodList)
+      // console.log(buyFoodList)
       if (buyFoodList) {
         buyFoodList.forEach((v1, i1) => {
           this.num = 0

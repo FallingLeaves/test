@@ -104,6 +104,19 @@
         </footer>
       </section>
     </div>
+    <footer class="buycart">
+      <div>
+        <div class="img">
+          <img src="src/assets/img/nobuy.svg" alt="" v-if="!currentShopBuyFood.length">
+          <img src="src/assets/img/isbuy.svg" alt="" v-if="currentShopBuyFood.length">
+        </div>
+        <p>¥{{total}}</p>
+        <div>配送费¥{{float_delivery_fee}}</div>
+      </div>
+      <div>
+        还差¥{{min_packing_fee}}起送
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -113,6 +126,7 @@ import Buy from "@/base/buy/buy"
 import { foodList } from "@/config/getData"
 import { getStore } from "@/config/mUtil"
 import { mapGetters } from "vuex"
+import Bus from "@/config/bus"
 export default {
   props: {
     id: {
@@ -132,7 +146,11 @@ export default {
       currentShopBuyFood: [],
       specfood: {},
       specIndex: 0,
-      show: false
+      show: false,
+      min_packing_fee: 0, //多少起送
+      float_delivery_fee: 0, //配送费
+      total: 0,
+      buycart: []
     }
   },
   computed: {
@@ -140,13 +158,28 @@ export default {
   },
   created() {
     this.getFoodList()
+    Bus.$on("packingFee", obj => {
+      this.min_packing_fee = obj.min_packing_fee
+      this.float_delivery_fee = obj.float_delivery_fee
+    })
   },
-  mounted () {
-    this.initCategoryNum()
+  mounted() {
+    // this.initCategoryNum()
+  },
+  beforeDestroy() {
+    Bus.$off("packingFee", this.myhandle)
   },
   methods: {
     test() {
-      
+      let sum = 0
+      this.buycart = []
+      this.currentShopBuyFood.forEach(v1 => {
+        v1.items.forEach(v2 => {
+          sum += v2.total
+          this.buycart.push(v2)
+        })
+      })
+      this.total = sum.toFixed(2)
     },
     getFoodList() {
       foodList(this.id).then(
@@ -180,10 +213,13 @@ export default {
     },
     initCategoryNum() {
       let buyFoodList = JSON.parse(getStore("buyFoodList"))
-      if (!buyFoodList.length) {
+      if (!buyFoodList || !buyFoodList.length) {
         this.categoryNum.forEach(v => {
           v.num = 0
         })
+        this.currentShopBuyFood = []
+        this.test()
+        return
       }
       buyFoodList.forEach((v1, i1) => {
         if (v1.restaurant_id == this.id) {
@@ -202,6 +238,7 @@ export default {
           }
         })
       })
+      this.test()
     },
     initCategory() {
       this.foodList.forEach(v => {
@@ -232,6 +269,7 @@ export default {
   },
   watch: {
     foodList() {
+      this.initCategoryNum()
       setTimeout(() => {
         this.getHeightList()
       }, 20)
@@ -439,12 +477,12 @@ export default {
         }
         .active {
           color: @blue;
-          border-color: @blue
+          border-color: @blue;
         }
       }
     }
     footer {
-      padding: .1rem;
+      padding: 0.1rem;
       background-color: #f9f9f9;
       .flex();
       > div {
@@ -454,6 +492,48 @@ export default {
           font-weight: 700;
         }
       }
+    }
+  }
+}
+footer.buycart {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0.5rem;
+  background-color: #333;
+  .flex();
+  > div {
+    &:nth-of-type(1) {
+      flex: 1;
+      .flex(center);
+      flex-direction: column;
+      align-items: center;
+      > p {
+        .sc(.20rem);
+        font-weight: 700;
+      }
+      > div {
+        .sc(.12rem);
+      }
+      .img {
+        position: absolute;
+        left: 0;
+        .wh(0.6rem, 0.6rem);
+        background-color: #fff;
+        border: 5px solid #444;
+        .border-radius(50%);
+        left: 0.2rem;
+        top: -0.2rem;
+      }
+    }
+    &:nth-of-type(2) {
+      .wh(1.2rem, 100%);
+      text-align: center;
+      .sc(0.14rem);
+      font-weight: 500;
+      line-height: 0.5rem;
+      background-color: #535356;
     }
   }
 }
