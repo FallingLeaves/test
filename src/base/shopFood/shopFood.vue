@@ -110,11 +110,12 @@
           <img src="src/assets/img/nobuy.svg" alt="" v-if="!currentShopBuyFood.length">
           <img src="src/assets/img/isbuy.svg" alt="" v-if="currentShopBuyFood.length">
         </div>
-        <p>¥{{total}}</p>
+        <p>¥{{total.toFixed(2)}}</p>
         <div>配送费¥{{float_delivery_fee}}</div>
       </div>
       <div>
-        还差¥{{min_packing_fee}}起送
+        <div v-if="min_packing_fee-total-total > 0">还差¥{{min_packing_fee-total-total}}起送</div>
+        <div v-if="min_packing_fee-total-total <= 0" class="pay">去结算</div>
       </div>
     </footer>
   </div>
@@ -179,7 +180,7 @@ export default {
           this.buycart.push(v2)
         })
       })
-      this.total = sum.toFixed(2)
+      this.total = sum
     },
     getFoodList() {
       foodList(this.id).then(
@@ -510,11 +511,11 @@ footer.buycart {
       flex-direction: column;
       align-items: center;
       > p {
-        .sc(.20rem);
+        .sc(0.2rem);
         font-weight: 700;
       }
       > div {
-        .sc(.12rem);
+        .sc(0.12rem);
       }
       .img {
         position: absolute;
@@ -534,6 +535,9 @@ footer.buycart {
       font-weight: 500;
       line-height: 0.5rem;
       background-color: #535356;
+    }
+    .pay {
+      background-color: #4cd964;
     }
   }
 }
