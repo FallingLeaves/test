@@ -353,6 +353,14 @@ export default {
         }
       }
       this.currentIndex = this.listHeight.length - 1
+    },
+    buycart: {
+      handler(newVal) {
+        if(!newVal.length) {
+          this.showCart = false
+        }
+      },
+      deep: true
     }
   }
 }
