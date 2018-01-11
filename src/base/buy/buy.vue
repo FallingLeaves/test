@@ -8,7 +8,7 @@
 
 <script>
 import { mapMutations, mapGetters } from "vuex"
-import { setStore, getStore } from "@/config/mUtil"
+import { getStore } from "@/config/mUtil"
 export default {
   props: {
     restaurant_id: {
@@ -90,8 +90,9 @@ export default {
       this.setBuyFoodList(this.food)
     },
     initNum() {
-      let buyFoodList = JSON.parse(getStore("buyFoodList"))
-      // let buyFoodList = this.buyFoodList
+      this.initBuyFoodList()
+      // let buyFoodList = JSON.parse(getStore("buyFoodList"))
+      let buyFoodList = this.buyFoodList
       // console.log(buyFoodList)
       if (buyFoodList) {
         buyFoodList.forEach((v1, i1) => {
@@ -112,50 +113,24 @@ export default {
       }
     },
     ...mapMutations({
-      setBuyFoodList: "SET_BUYFOODLIST"
+      setBuyFoodList: "SET_BUYFOODLIST",
+      initBuyFoodList: "INIT_SET_BUYFOODLIST"
     }),
     
   },
   watch: {
     num() {
       this.initFood()
-      setStore("buyFoodList", this.buyFoodList)
+      this.initNum()
       this.$emit("shopping", {
         num: Number(this.num),
         food_id: this.food_id,
         category_id: this.category_id
       })
     },
-    // specs() {
-    //   this.initNum()
-    //   this.initFood()
-    //   setStore("buyFoodList", this.buyFoodList)
-    //   this.$emit("shopping", {
-    //     num: Number(this.num),
-    //     food_id: this.food_id,
-    //     category_id: this.category_id
-    //   })
-    // },
     food_id() {
       this.initNum()
-      // this.initFood()
-      // setStore("buyFoodList", this.buyFoodList)
-      // this.$emit("shopping", {
-      //   num: Number(this.num),
-      //   food_id: this.food_id,
-      //   category_id: this.category_id
-      // })
-    },
-    // category_id() {
-    //   this.initNum()
-    //   this.initFood()
-    //   setStore("buyFoodList", this.buyFoodList)
-    //   this.$emit("shopping", {
-    //     num: Number(this.num),
-    //     food_id: this.food_id,
-    //     category_id: this.category_id
-    //   })
-    // }
+    }
   }
 }
 </script>

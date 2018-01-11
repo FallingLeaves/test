@@ -1,5 +1,5 @@
 import * as types from "./mutation-types"
-
+import { setStore, getStore } from "@/config/mUtil"
 const mutations = {
   [types.SET_LATITUDE](state, latitude) {
     state.latitude = latitude
@@ -144,6 +144,13 @@ const mutations = {
           state.buyFoodList.splice(i1, 1)
         }
       })
+    }
+    setStore("buyFoodList", state.buyFoodList)
+  },
+  [types.INIT_SET_BUYFOODLIST](state) {
+    let initBuyFoodList = JSON.parse(getStore("buyFoodList"))
+    if(initBuyFoodList) {
+      state.buyFoodList = initBuyFoodList
     }
   }
 }

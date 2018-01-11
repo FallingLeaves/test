@@ -95,10 +95,10 @@ export default {
     this.initQueryObj()
   },
   destroyed () {
-    Bus.$emit("packingFee", {
-      min_packing_fee: this.shopList[this.shopIndex].float_minimum_order_amount,
-      float_delivery_fee: this.shopList[this.shopIndex].float_delivery_fee
-    })
+    // Bus.$emit("packingFee", {
+    //   min_packing_fee: this.shopList[this.shopIndex].float_minimum_order_amount,
+    //   float_delivery_fee: this.shopList[this.shopIndex].float_delivery_fee
+    // })
   },
   methods: {
     initQueryObj() {//初始化请求参数
@@ -129,7 +129,7 @@ export default {
     },
     enter(id, index) {
       this.shopIndex = index
-      this.$router.push({ path: `/shop/${id}`})
+      this.$router.push({ path: `/shop/${id}?min_packing_fee=${this.shopList[index].float_minimum_order_amount}&float_delivery_fee=${this.shopList[index].float_delivery_fee}`})
     },
     ...mapMutations({
       setShopList: "SET_SHOPLIST",

@@ -117,6 +117,11 @@
         <div v-if="min_packing_fee-total-total > 0">还差¥{{min_packing_fee-total-total}}起送</div>
         <div v-if="min_packing_fee-total-total <= 0" class="pay">去结算</div>
       </div>
+      <!-- <section>
+        <ul>
+          <li v-for="item in buycart"></li>
+        </ul>
+      </section> -->
     </footer>
   </div>
 </template>
@@ -159,18 +164,24 @@ export default {
   },
   created() {
     this.getFoodList()
-    Bus.$on("packingFee", obj => {
-      this.min_packing_fee = obj.min_packing_fee
-      this.float_delivery_fee = obj.float_delivery_fee
-    })
+    this.getFee()
+    // Bus.$on("packingFee", obj => {
+    //   this.min_packing_fee = obj.min_packing_fee
+    //   this.float_delivery_fee = obj.float_delivery_fee
+    // })
   },
   mounted() {
     // this.initCategoryNum()
   },
   beforeDestroy() {
-    Bus.$off("packingFee", this.myhandle)
+    // Bus.$off("packingFee", this.myhandle)
   },
   methods: {
+    getFee() {
+      // console.log(this.$route.query)
+      this.min_packing_fee = parseInt(this.$route.query.min_packing_fee)
+      this.float_delivery_fee = parseInt(this.$route.query.float_delivery_fee)
+    },
     test() {
       let sum = 0
       this.buycart = []
