@@ -319,7 +319,7 @@ export default {
     },
     clear() {
       this.buycart = []
-      this.clearBuyFoodList()
+      this.clearBuyFoodList(this.id)
     },
     ...mapMutations({
       clearBuyFoodList: "CLEAR_BUYFOODLIST"
@@ -618,7 +618,7 @@ footer.buycart {
     left: 0;
     right: 0;
     bottom: 0.5rem;
-    max-height: 300px;
+    max-height: 500px;
     > header {
       .flex();
       padding: 0.1rem 0.2rem;

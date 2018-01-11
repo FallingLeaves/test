@@ -153,8 +153,14 @@ const mutations = {
       state.buyFoodList = initBuyFoodList
     }
   },
-  [types.CLEAR_BUYFOODLIST](state) {
-    state.buyFoodList = []
+  [types.CLEAR_BUYFOODLIST](state, shopId) {
+    let index =0
+    state.buyFoodList.forEach( (v, i) => {
+      if(v.restaurant_id == shopId) {
+        index = i
+      }
+    })
+    state.buyFoodList.splice(i, 1)
     setStore("buyFoodList", state.buyFoodList)
   }
 }
