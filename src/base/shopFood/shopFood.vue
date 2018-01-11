@@ -106,7 +106,7 @@
     </div>
     <footer class="buycart">
       <div>
-        <div class="img">
+        <div class="img" @click="showBuycart">
           <img src="src/assets/img/nobuy.svg" alt="" v-if="!currentShopBuyFood.length">
           <img src="src/assets/img/isbuy.svg" alt="" v-if="currentShopBuyFood.length">
         </div>
@@ -117,11 +117,43 @@
         <div v-if="min_packing_fee-total-total > 0">还差¥{{min_packing_fee-total-total}}起送</div>
         <div v-if="min_packing_fee-total-total <= 0" class="pay">去结算</div>
       </div>
-      <!-- <section>
+      <section v-show="buycart.length&&showCart">
+        <header>
+          <div>
+            购物车
+          </div>
+          <div @click="clear">
+            <img src="src/assets/img/delete.svg" alt="">
+            <span>清空</span>
+          </div>
+        </header>
         <ul>
-          <li v-for="item in buycart"></li>
+          <li v-for="item in buycart">
+            <div class="food-info">
+              <p>{{item.food_name}}</p>
+              <div>规格：{{item.specs}}</div>
+            </div>
+            <div class="food-num">
+              <div class="price">¥{{item.price}}</div>
+              <buy :restaurant_id="id" 
+                  :food_id="item.food_id"
+                  :food_name="item.food_name"
+                  :specs="item.specs"
+                  :price="item.price"
+                  :category_id="item.category_id"
+                  :category="item.name"
+                  :packing_fee="item.packing_fee"
+                  :stock="item.stock"
+                  @shopping="shopping"></buy>
+              <!-- <div class="cart">
+                <img src="src/assets/img/reduce.svg" alt="">
+                <input type="number" :value="item.food_num">
+                <img src="src/assets/img/add.svg" alt="">
+              </div> -->
+            </div>
+          </li>
         </ul>
-      </section> -->
+      </section>
     </footer>
   </div>
 </template>
@@ -131,8 +163,7 @@ import Scroll from "@/base/scroll/scroll"
 import Buy from "@/base/buy/buy"
 import { foodList } from "@/config/getData"
 import { getStore } from "@/config/mUtil"
-import { mapGetters } from "vuex"
-import Bus from "@/config/bus"
+import { mapGetters, mapMutations } from "vuex"
 export default {
   props: {
     id: {
@@ -156,7 +187,8 @@ export default {
       min_packing_fee: 0, //多少起送
       float_delivery_fee: 0, //配送费
       total: 0,
-      buycart: []
+      buycart: [],
+      showCart: false
     }
   },
   computed: {
@@ -186,9 +218,13 @@ export default {
       let sum = 0
       this.buycart = []
       this.currentShopBuyFood.forEach(v1 => {
+        let obj = {
+          name: v1.name,
+          category_id: v1.category_id
+        }
         v1.items.forEach(v2 => {
           sum += v2.total
-          this.buycart.push(v2)
+          this.buycart.push(Object.assign({}, obj, v2))
         })
       })
       this.total = sum
@@ -269,22 +305,39 @@ export default {
     },
     shopping(obj) {
       this.initCategoryNum()
-      // console.log(obj)
+      // this.$emit("myChange")
     },
     close() {
       this.show = false
-    }
+    },
+    showBuycart() {
+      if(this.buycart.length) {
+        this.showCart = !this.showCart
+      }else {
+        this.showCart = false
+      }
+    },
+    clear() {
+      this.buycart = []
+      this.clearBuyFoodList()
+    },
+    ...mapMutations({
+      clearBuyFoodList: "CLEAR_BUYFOODLIST"
+    })
   },
   components: {
     Scroll,
     Buy
   },
   watch: {
-    foodList() {
-      this.initCategoryNum()
-      setTimeout(() => {
-        this.getHeightList()
-      }, 20)
+    foodList: {
+      handler() {
+        this.initCategoryNum()
+        setTimeout(() => {
+          this.getHeightList()
+        }, 20)
+      },
+      deep: true
     },
     scrollY(newY) {
       if (newY > 0) {
@@ -537,6 +590,7 @@ footer.buycart {
         .border-radius(50%);
         left: 0.2rem;
         top: -0.2rem;
+        z-index: 1;
       }
     }
     &:nth-of-type(2) {
@@ -549,6 +603,72 @@ footer.buycart {
     }
     .pay {
       background-color: #4cd964;
+    }
+  }
+  section {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.5rem;
+    max-height: 300px;
+    > header {
+      .flex();
+      padding: 0.1rem 0.2rem;
+      background-color: #eceff1;
+      > div {
+        &:nth-of-type(1) {
+          .sc(0.16rem, #999);
+        }
+        &:nth-of-type(2) {
+          .flex();
+          align-items: center;
+          img {
+            .wh(0.2rem, 0.2rem);
+            margin-right: 10px;
+          }
+          .sc(0.12rem, #999);
+        }
+      }
+    }
+    ul {
+      li {
+        background-color: #fff;
+        padding: 0.1rem 0.2rem;
+        .flex();
+        align-items: center;
+        .food-info {
+          .flex();
+          flex-direction: column;
+          p {
+            .sc(0.16rem, #000);
+          }
+          div {
+            .sc(0.12rem, #666);
+          }
+        }
+        .food-num {
+          .flex();
+          align-items: center;
+          .price {
+            .sc(0.16rem, #ff6000);
+            font-weight: 500;
+            margin-right: 30px;
+          }
+          .cart {
+            .flex();
+            align-items: center;
+            img {
+              .wh(0.2rem, 0.2rem);
+            }
+            input {
+              outline: none;
+              width: 30px;
+              text-align: center;
+              .sc(0.12rem, #000);
+            }
+          }
+        }
+      }
     }
   }
 }

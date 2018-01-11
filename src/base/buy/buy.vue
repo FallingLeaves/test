@@ -60,6 +60,7 @@ export default {
   },
   created() {
     this.initNum()
+    this.initBuyFoodList()
   },
   methods: {
     reduce() {
@@ -90,10 +91,9 @@ export default {
       this.setBuyFoodList(this.food)
     },
     initNum() {
-      this.initBuyFoodList()
+      // this.initBuyFoodList()
       // let buyFoodList = JSON.parse(getStore("buyFoodList"))
       let buyFoodList = this.buyFoodList
-      // console.log(buyFoodList)
       if (buyFoodList) {
         buyFoodList.forEach((v1, i1) => {
           this.num = 0
@@ -104,32 +104,51 @@ export default {
                   if (v3.food_id == this.food_id) {
                     let buyFood = buyFoodList[i1].category[i2].items[i3]
                     this.num = buyFood.food_num
+                    console.log(this.num)
                   }
                 })
               }
             })
           }
         })
+      } else {
+        this.num = 0
       }
     },
     ...mapMutations({
       setBuyFoodList: "SET_BUYFOODLIST",
       initBuyFoodList: "INIT_SET_BUYFOODLIST"
-    }),
-    
+    })
   },
   watch: {
-    num() {
+    num(newVal) {
+      if(newVal>0) {
+        this.show = true
+      } else {
+        this.show = false
+      }
       this.initFood()
       this.initNum()
-      this.$emit("shopping", {
-        num: Number(this.num),
-        food_id: this.food_id,
-        category_id: this.category_id
-      })
+      // this.$emit("shopping", {
+      //   num: Number(this.num),
+      //   food_id: this.food_id,
+      //   category_id: this.category_id
+      // })
     },
     food_id() {
       this.initNum()
+    },
+    buyFoodList: {
+      handler(newVal, oldVal) {
+        this.initNum()
+        // console.log(newVal)
+        this.$emit("shopping", {
+          num: Number(this.num),
+          food_id: this.food_id,
+          category_id: this.category_id
+        })
+      },
+      deep: true
     }
   }
 }

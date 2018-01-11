@@ -6,7 +6,7 @@
         <span :class="{active:currentIndex==index}" @click="choose(index)">{{item}}</span>
       </div>
     </nav>
-    <shop-food :id="getId" class="shop-food"></shop-food>
+    <shop-food :id="getId" class="shop-food" @myChange="myChange"></shop-food>
   </div>
 </template>
 
@@ -31,6 +31,9 @@ export default {
   methods: {
     choose(index) {
       this.currentIndex = index
+    },
+    myChange() {
+      this.$router.go(this.$route.path)
     }
   },
   components: {

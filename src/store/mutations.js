@@ -152,6 +152,10 @@ const mutations = {
     if(initBuyFoodList) {
       state.buyFoodList = initBuyFoodList
     }
+  },
+  [types.CLEAR_BUYFOODLIST](state) {
+    state.buyFoodList = []
+    setStore("buyFoodList", state.buyFoodList)
   }
 }
 
