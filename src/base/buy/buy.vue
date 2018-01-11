@@ -129,27 +129,27 @@ export default {
       }
       this.initFood()
       this.initNum()
-      // this.$emit("shopping", {
-      //   num: Number(this.num),
-      //   food_id: this.food_id,
-      //   category_id: this.category_id
-      // })
+      this.$emit("shopping", {
+        num: Number(this.num),
+        food_id: this.food_id,
+        category_id: this.category_id
+      })
     },
     food_id() {
       this.initNum()
     },
-    buyFoodList: {
-      handler(newVal, oldVal) {
-        this.initNum()
-        // console.log(newVal)
-        this.$emit("shopping", {
-          num: Number(this.num),
-          food_id: this.food_id,
-          category_id: this.category_id
-        })
-      },
-      deep: true
-    }
+    // buyFoodList: {
+    //   handler(newVal, oldVal) {
+    //     this.initNum()
+    //     // console.log(newVal)
+    //     this.$emit("shopping", {
+    //       num: Number(this.num),
+    //       food_id: this.food_id,
+    //       category_id: this.category_id
+    //     })
+    //   },
+    //   deep: true
+    // }
   }
 }
 </script>

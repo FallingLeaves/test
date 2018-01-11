@@ -139,23 +139,24 @@ export default {
     Rating
   },
   watch: {
-    queryObj: {
-      handler() {
-        this.initQueryObj()
-      }
+    // queryObj: {
+    //   handler() {
+    //     this.initQueryObj()
+    //   },
+    //   deep: true
+    // },
+    limit() {
+      this.initQueryObj()
     },
-    // limit() {
-    //   this.initQueryObj()
-    // },
-    // order_by() {
-    //   this.initQueryObj()
-    // },
-    // restaurant_category_ids() {
-    //   this.initQueryObj()
-    // },
-    // support_ids() {
-    //   this.initQueryObj()
-    // }
+    order_by() {
+      this.initQueryObj()
+    },
+    restaurant_category_ids() {
+      this.initQueryObj()
+    },
+    support_ids() {
+      this.initQueryObj()
+    }
   }
 }
 </script>

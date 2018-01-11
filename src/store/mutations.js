@@ -160,7 +160,7 @@ const mutations = {
         index = i
       }
     })
-    state.buyFoodList.splice(i, 1)
+    state.buyFoodList.splice(index, 1)
     setStore("buyFoodList", state.buyFoodList)
   }
 }
