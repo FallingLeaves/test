@@ -117,7 +117,7 @@
         <div v-if="min_packing_fee-total-total > 0">还差¥{{min_packing_fee-total-total}}起送</div>
         <div v-if="min_packing_fee-total-total <= 0" class="pay">去结算</div>
       </div>
-      <section v-show="buycart.length&&showCart">
+      <section v-show="buycart.length&&showCart" ref="buycart">
         <header>
           <div>
             购物车
@@ -127,29 +127,34 @@
             <span>清空</span>
           </div>
         </header>
-        <ul>
-          <li v-for="item in buycart">
-            <div class="food-info">
-              <p>{{item.food_name}}</p>
-              <div>规格：{{item.specs}}</div>
-            </div>
-            <div class="food-num">
-              <div class="price">¥{{item.price}}</div>
-              <buy :restaurant_id="id" 
-                  :food_id="item.food_id"
-                  :food_name="item.food_name"
-                  :specs="item.specs"
-                  :price="item.price"
-                  :category_id="item.category_id"
-                  :category="item.name"
-                  :packing_fee="item.packing_fee"
-                  :stock="item.stock"
-                  @shopping="shopping"></buy>
-            </div>
-          </li>
-        </ul>
+        <scroll class="cart-scroll" :data="buycart">
+          <div>
+            <ul>
+              <li v-for="item in buycart">
+                <div class="food-info">
+                  <p>{{item.food_name}}</p>
+                  <div>规格：{{item.specs}}</div>
+                </div>
+                <div class="food-num">
+                  <div class="price">¥{{item.price}}</div>
+                  <buy :restaurant_id="id" 
+                      :food_id="item.food_id"
+                      :food_name="item.food_name"
+                      :specs="item.specs"
+                      :price="item.price"
+                      :category_id="item.category_id"
+                      :category="item.name"
+                      :packing_fee="item.packing_fee"
+                      :stock="item.stock"
+                      @shopping="shopping"></buy>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </scroll>
       </section>
     </footer>
+    <div class="cover" v-show="buycart.length&&showCart"></div>
   </div>
 </template>
 
@@ -190,7 +195,7 @@ export default {
     // ...mapGetters(["buyFoodList"]),
     getBuyFoodList() {
       return this.$store.getters.buyFoodList
-    },
+    }
   },
   created() {
     this.getFoodList()
@@ -309,9 +314,10 @@ export default {
       this.show = false
     },
     showBuycart() {
-      if(this.buycart.length) {
+      console.log(this.$refs.buycart.clientHeight)
+      if (this.buycart.length) {
         this.showCart = !this.showCart
-      }else {
+      } else {
         this.showCart = false
       }
     },
@@ -322,7 +328,7 @@ export default {
     },
     ...mapMutations({
       clearBuyFoodList: "CLEAR_BUYFOODLIST",
-      setCarttime:"SET_CARTTIME"
+      setCarttime: "SET_CARTTIME"
     })
   },
   components: {
@@ -356,7 +362,7 @@ export default {
     },
     buycart: {
       handler(newVal) {
-        if(!newVal.length) {
+        if (!newVal.length) {
           this.showCart = false
         }
       },
@@ -575,6 +581,7 @@ footer.buycart {
   bottom: 0;
   height: 0.5rem;
   background-color: #333;
+  z-index: 4;
   .flex();
   > div {
     &:nth-of-type(1) {
@@ -618,9 +625,11 @@ footer.buycart {
     left: 0;
     right: 0;
     bottom: 0.5rem;
-    max-height: 500px;
+    max-height: 300px;
+    overflow: hidden;
     > header {
       .flex();
+      height: 40px;
       padding: 0.1rem 0.2rem;
       background-color: #eceff1;
       > div {
@@ -637,6 +646,10 @@ footer.buycart {
           .sc(0.12rem, #999);
         }
       }
+    }
+    .cart-scroll {
+      max-height: 260px;
+      overflow: hidden;
     }
     ul {
       li {
@@ -679,5 +692,14 @@ footer.buycart {
       }
     }
   }
+}
+.cover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .3);
+  z-index: 3;
 }
 </style>
