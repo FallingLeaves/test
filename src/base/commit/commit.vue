@@ -34,7 +34,7 @@
       </ul>
     </div>
     <div class="commits">
-      <scroll :data="commits">
+      <scroll :data="commits" class="commits-scroll">
         <div>
           <section v-for="(commit, index) in commits" :key="index">
             <div class="avatar">
@@ -173,6 +173,8 @@ export default {
   flex: 1;
   background-color: rgb(245, 245, 245);
   overflow: hidden;
+  .flex();
+  flex-direction: column;
   > header {
     .flex(flex-start);
     align-items: center;
@@ -248,8 +250,14 @@ export default {
     }
   }
   .commits {
+    flex: 1;
+    overflow: hidden;
     background-color: #fff;
     padding: 0 0.2rem;
+    .commits-scroll {
+      height: 100%;
+      overflow: hidden;
+    }
     section {
       padding: 10px 0;
       border-bottom: 1px solid rgb(245, 245, 245);
