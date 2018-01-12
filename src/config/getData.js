@@ -324,7 +324,7 @@ export const ratings = (id, obj) => {
     Vue.http
       .get(url, {
         params: {
-          tagname: obj.tagname || "", //评价类型，默认全部
+          tag_name: obj.tagname || "", //评价类型，默认全部
           offset: obj.offset || 0, //跳过数据条数
           limit: obj.limit || 10 //单次获取数据条数
         }

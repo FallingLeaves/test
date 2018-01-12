@@ -6,13 +6,15 @@
         <span :class="{active:currentIndex==index}" @click="choose(index)">{{item}}</span>
       </div>
     </nav>
-    <shop-food :id="getId" class="shop-food" @myChange="myChange"></shop-food>
+    <shop-food :id="getId" class="shop-food" @myChange="myChange" v-show="currentIndex==0"></shop-food>
+    <commit :id="getId" v-show="currentIndex==1"></commit>
   </div>
 </template>
 
 <script>
 import ShopTop from '@/base/shopTop/shopTop'
 import ShopFood from '@/base/shopFood/shopFood'
+import Commit from '@/base/commit/commit'
 export default {
   data () {
     return {
@@ -38,7 +40,8 @@ export default {
   },
   components: {
     ShopTop,
-    ShopFood
+    ShopFood,
+    Commit
   }
 }
 </script>
