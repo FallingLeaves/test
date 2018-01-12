@@ -129,22 +129,22 @@ const mutations = {
           ]
         })
       }
-      state.buyFoodList.forEach((v1, i1) => {
-        v1.category.forEach((v2, i2) => {
-          v2.items.forEach((v3, i3) => {
-            if (v3.food_num == 0) {
-              v2.items.splice(i3, 1)
-            }
-          })
-          if (!v2.items.length) {
-            v1.category.splice(i2, 1)
+    }
+    state.buyFoodList.forEach((v1, i1) => {
+      v1.category.forEach((v2, i2) => {
+        v2.items.forEach((v3, i3) => {
+          if (v3.food_num == 0) {
+            v2.items.splice(i3, 1)
           }
         })
-        if (!v1.category.length) {
-          state.buyFoodList.splice(i1, 1)
+        if (!v2.items.length) {
+          v1.category.splice(i2, 1)
         }
       })
-    }
+      if (!v1.category.length) {
+        state.buyFoodList.splice(i1, 1)
+      }
+    })
     setStore("buyFoodList", state.buyFoodList)
   },
   [types.INIT_SET_BUYFOODLIST](state) {
@@ -162,6 +162,9 @@ const mutations = {
     })
     state.buyFoodList.splice(index, 1)
     setStore("buyFoodList", state.buyFoodList)
+  },
+  [types.SET_CARTTIME](state, time) {
+    state.cartTime = time
   }
 }
 

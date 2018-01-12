@@ -7,3 +7,5 @@ export const geohash = state => state.geohash
 export const shopList = state => state.shopList
 
 export const buyFoodList = state => state.buyFoodList
+
+export const cartTime = state => state.cartTime

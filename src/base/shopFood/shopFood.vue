@@ -107,8 +107,8 @@
     <footer class="buycart">
       <div>
         <div class="img" @click="showBuycart">
-          <img src="src/assets/img/nobuy.svg" alt="" v-if="!currentShopBuyFood.length">
-          <img src="src/assets/img/isbuy.svg" alt="" v-if="currentShopBuyFood.length">
+          <img src="src/assets/img/nobuy.svg" alt="" v-if="!buycart.length">
+          <img src="src/assets/img/isbuy.svg" alt="" v-if="buycart.length">
         </div>
         <p>¥{{total.toFixed(2)}}</p>
         <div>配送费¥{{float_delivery_fee}}</div>
@@ -145,11 +145,6 @@
                   :packing_fee="item.packing_fee"
                   :stock="item.stock"
                   @shopping="shopping"></buy>
-              <!-- <div class="cart">
-                <img src="src/assets/img/reduce.svg" alt="">
-                <input type="number" :value="item.food_num">
-                <img src="src/assets/img/add.svg" alt="">
-              </div> -->
             </div>
           </li>
         </ul>
@@ -192,7 +187,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["buyFoodList"])
+    // ...mapGetters(["buyFoodList"]),
+    getBuyFoodList() {
+      return this.$store.getters.buyFoodList
+    },
   },
   created() {
     this.getFoodList()
@@ -280,7 +278,7 @@ export default {
           if (v1.category_id == v2.category_id) {
             let sum = 0
             this.currentShopBuyFood[i2].items.forEach(v => {
-              sum += v.food_num
+              sum += parseInt(v.food_num)
             })
             this.categoryNum[i1].num = sum
           }
@@ -320,9 +318,11 @@ export default {
     clear() {
       this.buycart = []
       this.clearBuyFoodList(this.id)
+      this.setCarttime(new Date())
     },
     ...mapMutations({
-      clearBuyFoodList: "CLEAR_BUYFOODLIST"
+      clearBuyFoodList: "CLEAR_BUYFOODLIST",
+      setCarttime:"SET_CARTTIME"
     })
   },
   components: {

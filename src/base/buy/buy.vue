@@ -56,7 +56,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["buyFoodList"])
+    // ...mapGetters(["buyFoodList"]),
+    getBuyFoodList() {
+      return this.$store.getters.buyFoodList
+    },
+    getCartTime() {
+      return this.$store.getters.cartTime
+    }
   },
   created() {
     this.initNum()
@@ -89,22 +95,21 @@ export default {
         stock: this.stock //库存
       }
       this.setBuyFoodList(this.food)
+      this.setCarttime(new Date())
     },
     initNum() {
-      // this.initBuyFoodList()
-      // let buyFoodList = JSON.parse(getStore("buyFoodList"))
-      let buyFoodList = this.buyFoodList
-      if (buyFoodList) {
+      let buyFoodList = this.getBuyFoodList
+      if (buyFoodList.length) {
+        this.num = 0
         buyFoodList.forEach((v1, i1) => {
-          this.num = 0
           if (v1.restaurant_id == this.restaurant_id) {
-            buyFoodList[i1].category.forEach((v2, i2) => {
+            v1.category.forEach((v2, i2) => {
               if (v2.category_id == this.category_id) {
-                buyFoodList[i1].category[i2].items.forEach((v3, i3) => {
+                v2.items.forEach((v3, i3) => {
                   if (v3.food_id == this.food_id) {
-                    let buyFood = buyFoodList[i1].category[i2].items[i3]
-                    this.num = buyFood.food_num
-                    console.log(this.num)
+                    let buyFood = v3
+                    this.num = parseInt(buyFood.food_num)
+                    // console.log(this.num)
                   }
                 })
               }
@@ -117,12 +122,13 @@ export default {
     },
     ...mapMutations({
       setBuyFoodList: "SET_BUYFOODLIST",
-      initBuyFoodList: "INIT_SET_BUYFOODLIST"
+      initBuyFoodList: "INIT_SET_BUYFOODLIST",
+      setCarttime:"SET_CARTTIME"
     })
   },
   watch: {
     num(newVal) {
-      if(newVal>0) {
+      if (newVal > 0) {
         this.show = true
       } else {
         this.show = false
@@ -135,21 +141,15 @@ export default {
         category_id: this.category_id
       })
     },
-    food_id() {
+    getCartTime() {
+      // console.log("state change")
       this.initNum()
-    },
-    // buyFoodList: {
-    //   handler(newVal, oldVal) {
-    //     this.initNum()
-    //     // console.log(newVal)
-    //     this.$emit("shopping", {
-    //       num: Number(this.num),
-    //       food_id: this.food_id,
-    //       category_id: this.category_id
-    //     })
-    //   },
-    //   deep: true
-    // }
+      this.$emit("shopping", {
+        num: Number(this.num),
+        food_id: this.food_id,
+        category_id: this.category_id
+      })
+    }
   }
 }
 </script>
