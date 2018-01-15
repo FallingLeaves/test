@@ -1,5 +1,5 @@
 <template>
-  <div class="commit-view">
+  <div class="commit-view" v-if="scorses.overall_score">
     <header v-if="scorses.overall_score">
       <div class="scorse">
         <h4>{{scorses.overall_score.toFixed(1)}}</h4>
@@ -23,19 +23,19 @@
         </section>
       </div>
     </header>
-    <div class="tags" v-if="tags.length">
-      <ul>
-        <li v-for="(item, index) in tags" 
-            :key="index" 
-            :class="{active:tagIndex==index,unsatisfied:item.unsatisfied}"
-            @click="selectTag(index)">
-            {{item.name}}({{item.count}})
-        </li>
-      </ul>
-    </div>
-    <div class="commits">
-      <scroll :data="commits" class="commits-scroll">
-        <div>
+    <scroll :data="commits" :pullup="pullup"  @scrollToEnd="onScrollToEnd" class="commits-scroll">
+      <div>
+        <div class="tags" v-if="tags.length">
+          <ul>
+            <li v-for="(item, index) in tags" 
+                :key="index" 
+                :class="{active:tagIndex==index,unsatisfied:item.unsatisfied}"
+                @click="selectTag(index)">
+                {{item.name}}({{item.count}})
+            </li>
+          </ul>
+        </div>
+        <div class="commits">
           <section v-for="(commit, index) in commits" :key="index">
             <div class="avatar">
               <img v-lazy="commit.avatar" alt="">
@@ -60,8 +60,8 @@
             </div>
           </section>
         </div>
-      </scroll>
-    </div>
+      </div>
+    </scroll>
   </div>
 </template>
 
@@ -86,7 +86,8 @@ export default {
         offset: 0,
         limit: 10
       },
-      commits: []
+      commits: [],
+      pullup: true
     }
   },
   created() {
@@ -158,6 +159,12 @@ export default {
         }
       })
       return url
+    },
+    onScrollToEnd() {
+      if (this.commits.length == this.ratingObj.limit) {
+        this.ratingObj.limit += 10
+        this.initRatingObj()
+      }
     }
   },
   components: {
@@ -215,6 +222,10 @@ export default {
       }
     }
   }
+  .commits-scroll {
+    flex: 1;
+    overflow: hidden;
+  }
   .tags {
     background-color: #fff;
     padding: 0.2rem;
@@ -254,10 +265,6 @@ export default {
     overflow: hidden;
     background-color: #fff;
     padding: 0 0.2rem;
-    .commits-scroll {
-      height: 100%;
-      overflow: hidden;
-    }
     section {
       padding: 10px 0;
       border-bottom: 1px solid rgb(245, 245, 245);

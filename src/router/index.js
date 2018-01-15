@@ -4,11 +4,12 @@ import Home from "@/components/home/home"
 import Login from "@/components/login/login"
 import City from "@/components/city/city"
 import Site from "@/components/site/site"
-import Search from '@/components/search/search'
-import Order from '@/components/order/order'
-import Profile from '@/components/profile/profile'
-import Food from '@/components/food/food'
+import Search from "@/components/search/search"
+import Order from "@/components/order/order"
+import Profile from "@/components/profile/profile"
+import Food from "@/components/food/food"
 import Shop from "@/components/shop/shop"
+import ShopDetail from "@/components/shopDetail/shopDetail"
 
 Vue.use(Router)
 
@@ -54,6 +55,16 @@ export default new Router({
     {
       path: "/shop/:id",
       component: Shop
+      // children: [
+      //   {
+      //     path: "shopDetail",
+      //     component: ShopDetail
+      //   }
+      // ]
+    },
+    {
+      path: "/shopDetail/:id",
+      component: ShopDetail
     }
   ]
 })

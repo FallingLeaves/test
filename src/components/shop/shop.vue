@@ -1,6 +1,7 @@
 <template>
   <div class="view">
     <shop-top :id="getId"></shop-top>
+    <router-view></router-view>
     <nav>
       <div v-for="(item, index) in title">
         <span :class="{active:currentIndex==index}" @click="choose(index)">{{item}}</span>

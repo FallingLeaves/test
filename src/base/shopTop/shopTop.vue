@@ -6,7 +6,7 @@
         <div></div>
       </div>
       <div>
-        <div class="info">
+        <div class="info" @click="enterShopDetail">
           <img v-lazy="SHOP_IMG_BASE_PATH+shopInfo.image_path" alt="">
           <div>
             <div class="name">{{shopInfo.name}}</div>
@@ -37,9 +37,9 @@
         <header>{{shopInfo.name}}</header>
         <nav>
           <header>优惠信息</header>
-          <div>
-            <div :style="{backgroundColor:`#${shopInfo.activities[0].icon_color}`}" class="item">{{shopInfo.activities[0].icon_name}}</div>
-            <div>{{shopInfo.activities[0].description}}（APP专享）</div>
+          <div v-for="(item, index) in shopInfo.activities" :key="index">
+            <div :style="{backgroundColor:`#${item.icon_color}`}" class="item">{{item.icon_name}}</div>
+            <div>{{item.description}}<span v-if="item.icon_name=='减'">（APP专享）</span></div>
           </div>
         </nav>
         <nav>
@@ -92,6 +92,10 @@ export default {
     },
     close() {
       this.showActivities = false
+    },
+    enterShopDetail() {
+      // this.$router.push({path: `/shop/${this.id}/shopDetail`})
+      this.$router.push({path: `/shopDetail/${this.id}`})
     }
   }
 }
@@ -213,7 +217,9 @@ header {
       }
       > div {
         .sc(.12rem);
+        padding: 5px 0;
         .flex(flex-start);
+        align-items: center;
         .item {
           padding: 1px 3px;
           .border-radius(5px);
