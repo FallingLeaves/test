@@ -69,6 +69,7 @@
 import Rating from "@/base/rating/rating"
 import Scroll from "@/base/scroll/scroll"
 import { ratingsScorse, ratingsTags, ratings } from "@/config/getData"
+import { FOOD_IMG_BASE_URL } from "@/config/env"
 export default {
   props: {
     id: {
@@ -78,7 +79,8 @@ export default {
   },
   data() {
     return {
-      FOOD_IMG_BASE_URL: "https://fuss10.elemecdn.com",
+      // FOOD_IMG_BASE_URL: "https://fuss10.elemecdn.com",
+      FOOD_IMG_BASE_URL,
       scorses: {},
       tags: [],
       tagIndex: 0,

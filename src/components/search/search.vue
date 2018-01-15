@@ -44,13 +44,15 @@
 <script>
 import { searchRestaurants } from "@/config/getData"
 import { setStore, getStore, removeStore } from "@/config/mUtil"
+import { SHOP_IMG_BASE_PATH } from "@/config/env"
 import { mapGetters } from "vuex"
 import myHeader from "@/components/header/header"
 import TabBar from "@/components/tabBar/tabBar"
 export default {
   data() {
     return {
-      SHOP_IMG_BASE_PATH: "http://cangdu.org:8001/img/",
+      // SHOP_IMG_BASE_PATH: "http://cangdu.org:8001/img/",
+      SHOP_IMG_BASE_PATH,
       title: "搜索",
       isSearch: false,
       isBack: true,

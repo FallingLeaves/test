@@ -163,6 +163,7 @@ import Scroll from "@/base/scroll/scroll"
 import Buy from "@/base/buy/buy"
 import { foodList } from "@/config/getData"
 import { getStore } from "@/config/mUtil"
+import { SHOP_IMG_BASE_PATH } from "@/config/env"
 import { mapGetters, mapMutations } from "vuex"
 export default {
   props: {
@@ -173,7 +174,8 @@ export default {
   },
   data() {
     return {
-      SHOP_IMG_BASE_PATH: "http://cangdu.org:8001/img/",
+      // SHOP_IMG_BASE_PATH: "http://cangdu.org:8001/img/",
+      SHOP_IMG_BASE_PATH,
       foodList: [],
       currentIndex: 0,
       listenScroll: true,

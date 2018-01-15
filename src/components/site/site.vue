@@ -50,6 +50,7 @@
 
 <script>
 import { mySite, foodSort } from "@/config/getData"
+import { FOOD_IMG_BASE_URL } from "@/config/env"
 import myHeader from "@/components/header/header"
 import TabBar from "@/components/tabBar/tabBar"
 import Slider from "@/base/slider/slider"
@@ -64,7 +65,8 @@ export default {
       isBack: false,
       site: {},
       foodSort: [],
-      FOOD_IMG_BASE_URL: "https://fuss10.elemecdn.com",
+      // FOOD_IMG_BASE_URL: "https://fuss10.elemecdn.com",
+      FOOD_IMG_BASE_URL,
       longitude: "",
       latitude: "",
       limit: 20,

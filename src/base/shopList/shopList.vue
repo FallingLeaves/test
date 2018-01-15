@@ -38,13 +38,15 @@
 
 <script>
 import { shopList } from "@/config/getData"
+import { SHOP_IMG_BASE_PATH } from "@/config/env"
 import Rating from '@/base/rating/rating'
 import { mapMutations } from "vuex"
 import Bus from '@/config/bus'
 export default {
   data () {
     return {
-      SHOP_IMG_BASE_PATH: "http://cangdu.org:8001/img/",
+      // SHOP_IMG_BASE_PATH: "http://cangdu.org:8001/img/",
+      SHOP_IMG_BASE_PATH,
       queryObj: {},
       shopList: [],
       shopIndex: 0

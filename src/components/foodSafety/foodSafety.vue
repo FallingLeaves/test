@@ -92,6 +92,7 @@
 import myHeader from "@/components/header/header"
 import Scroll from "@/base/scroll/scroll"
 import { shop } from "@/config/getData"
+import { SHOP_IMG_BASE_PATH } from "@/config/env"
 import { mapGetters } from "vuex"
 export default {
   data() {
@@ -100,7 +101,8 @@ export default {
       isSearch: false,
       isBack: true,
       isLogin: false,
-      SHOP_IMG_BASE_PATH: "http://cangdu.org:8001/img/",
+      // SHOP_IMG_BASE_PATH: "http://cangdu.org:8001/img/",
+      SHOP_IMG_BASE_PATH,
       // shopInfo: {}
     }
   },

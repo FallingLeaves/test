@@ -72,6 +72,7 @@
 <script>
 // import { hasClass, addClass, removeClass, toggleClass } from "@/config/dom"
 import { shopCategory, delivery, shopAttribute } from "@/config/getData"
+import { FOOD_IMG_BASE_URL } from "@/config/env"
 import { mapGetters } from "vuex"
 import Scroll from "@/base/scroll/scroll"
 export default {
@@ -87,7 +88,8 @@ export default {
       foodId: null,
       // restaurant_category_ids: null,
       order_by: 4,
-      FOOD_IMG_BASE_URL: "https://fuss10.elemecdn.com",
+      // FOOD_IMG_BASE_URL: "https://fuss10.elemecdn.com",
+      FOOD_IMG_BASE_URL,
       order: [
         { title: "智能排序", img_url: "src/assets/img/order.png", order_by: 4 },
         { title: "距离最近", img_url: "src/assets/img/address.png", order_by: 5 },

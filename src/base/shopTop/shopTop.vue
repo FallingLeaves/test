@@ -23,7 +23,7 @@
             </div>
           </div>
         </div>
-        <div class="activities" @click="enterActivities">
+        <div class="activities" @click="enterActivities" v-if="shopInfo.activities.length">
           <div>
             <div :style="{backgroundColor:`#${shopInfo.activities[0].icon_color}`}" class="item">{{shopInfo.activities[0].icon_name}}</div>
             <div>{{shopInfo.activities[0].description}}（APP专享）</div>
@@ -56,6 +56,7 @@
 
 <script>
 import { shop } from "@/config/getData"
+import { SHOP_IMG_BASE_PATH } from "@/config/env"
 import { mapMutations } from 'vuex'
 export default {
   props: {
@@ -66,7 +67,8 @@ export default {
   },
   data() {
     return {
-      SHOP_IMG_BASE_PATH: "http://cangdu.org:8001/img/",
+      // SHOP_IMG_BASE_PATH: "http://cangdu.org:8001/img/",
+      SHOP_IMG_BASE_PATH,
       shopInfo: {},
       showActivities: false
     }
