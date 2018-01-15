@@ -254,6 +254,9 @@ export default {
       let listHeight = []
       let height = 0
       let children = this.$refs.foodList
+      if(!children) {
+        return
+      }
       listHeight.push(height)
       for (let i = 0; i < children.length; i++) {
         let child = children[i]

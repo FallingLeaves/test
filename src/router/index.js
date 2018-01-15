@@ -10,6 +10,7 @@ import Profile from "@/components/profile/profile"
 import Food from "@/components/food/food"
 import Shop from "@/components/shop/shop"
 import ShopDetail from "@/components/shopDetail/shopDetail"
+import FoodSafety from "@/components/foodSafety/foodSafety"
 
 Vue.use(Router)
 
@@ -55,16 +56,14 @@ export default new Router({
     {
       path: "/shop/:id",
       component: Shop
-      // children: [
-      //   {
-      //     path: "shopDetail",
-      //     component: ShopDetail
-      //   }
-      // ]
     },
     {
       path: "/shopDetail/:id",
       component: ShopDetail
+    },
+    {
+      path: "/shopDetail/:id/foodSafety",
+      component: FoodSafety
     }
   ]
 })

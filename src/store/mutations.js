@@ -165,6 +165,9 @@ const mutations = {
   },
   [types.SET_CARTTIME](state, time) {
     state.cartTime = time
+  },
+  [types.SET_SHOPDETAIL](state, shopDetail) {
+    state.shopDetail = shopDetail
   }
 }
 

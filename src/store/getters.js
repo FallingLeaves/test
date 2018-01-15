@@ -9,3 +9,5 @@ export const shopList = state => state.shopList
 export const buyFoodList = state => state.buyFoodList
 
 export const cartTime = state => state.cartTime
+
+export const shopDetail = state => state.shopDetail

@@ -56,6 +56,7 @@
 
 <script>
 import { shop } from "@/config/getData"
+import { mapMutations } from 'vuex'
 export default {
   props: {
     id: {
@@ -78,6 +79,7 @@ export default {
       shop(this.id).then(
         res => {
           this.shopInfo = res.body
+          this.setShopDetail(this.shopInfo)
         },
         err => {
           console.log(err)
@@ -94,9 +96,11 @@ export default {
       this.showActivities = false
     },
     enterShopDetail() {
-      // this.$router.push({path: `/shop/${this.id}/shopDetail`})
       this.$router.push({path: `/shopDetail/${this.id}`})
-    }
+    },
+    ...mapMutations({
+      setShopDetail: "SET_SHOPDETAIL"
+    })
   }
 }
 </script>
