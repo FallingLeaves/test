@@ -278,6 +278,7 @@ export default {
         return
       }
       buyFoodList.forEach((v1, i1) => {
+        this.currentShopBuyFood = []
         if (v1.restaurant_id == this.id) {
           this.currentShopBuyFood = buyFoodList[i1].category
         }
