@@ -17,7 +17,7 @@ export default {
   props: {
     loop: {
       type: Boolean,
-      default: false
+      default: true
     },
     autoPlay: {
       type: Boolean,

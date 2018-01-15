@@ -14,7 +14,7 @@
               @scrollToEnd="onScrollToEnd">
         <div>
           <header>
-            <slider v-if="foodSort">
+            <slider v-if="foodSort.length">
               <div>
                 <div v-for="(item, index) in foodSort.slice(0, 8)" :key="item.id" class="item">
                   <router-link :to="'/food/'+item.title+'/'+item.id">
