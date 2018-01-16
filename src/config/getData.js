@@ -389,3 +389,51 @@ export const getcaptchas = () => {
     )
   })
 }
+/**
+ * 登录
+ * @param {*用户账号} username
+ * @param {*密码} password
+ * @param {*验证码} captcha_code
+ */
+export const login = (username, password, captcha_code) => {
+  let url = "http://cangdu.org:8001/v2/login"
+  return new Promise((resolve, reject) => {
+    Vue.http
+      .post(url, {
+        username,
+        password,
+        captcha_code
+      })
+      .then(
+        res => {
+          resolve(res)
+        },
+        err => {
+          reject(err)
+        }
+      )
+  })
+}
+/**
+ * 获取用户信息
+ * @param {*用户id} user_id
+ */
+export const getUserInfo = user_id => {
+  let url = "http://cangdu.org:8001/v1/user"
+  return new Promise((resolve, reject) => {
+    Vue.http
+      .get(url, {
+        params: {
+          user_id
+        }
+      })
+      .then(
+        res => {
+          resolve(res)
+        },
+        err => {
+          reject(err)
+        }
+      )
+  })
+}

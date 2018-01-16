@@ -27,12 +27,21 @@
         </div>
       </section>
     </form>
+    <p class="login—tips">
+      温馨提示：未注册过的账号，登录时将自动注册
+    </p>
+    <p class="login—tips">
+      注册过的用户可凭账号密码登录
+    </p>
+    <div class="login-button" @click="_login">登录</div>
+    <div class="reset">重置密码?</div>
   </div>
 </template>
 
 <script>
 import myHeader from "@/components/header/header"
-import { getcaptchas } from "@/config/getData"
+import { getcaptchas, login } from "@/config/getData"
+import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -44,7 +53,8 @@ export default {
       showPassword: false,
       userAccount: null,
       userPassword: null,
-      identifyCode: null
+      identifyCode: null,
+      userInfo: null
     }
   },
   created() {
@@ -62,11 +72,34 @@ export default {
       )
     },
     changePasswordType() {
-      this.showPassword = !this.showPassword;
+      this.showPassword = !this.showPassword
     },
     changeImgCode() {
       this._getcaptchas()
-    }
+    },
+    _login() {
+      if (!this.userAccount) {
+        return
+      }
+      if (!this.userPassword) {
+        return
+      }
+      if (!this.identifyCode) {
+        return
+      }
+      login(this.userAccount, this.userPassword, this.identifyCode).then(
+        res => {
+          this.userInfo = res.body
+          this.userInfo.user_id?this.setUserInfo(this.userInfo) : console.log(this.userInfo.message)
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    },
+    ...mapMutations({
+      setUserInfo: "SET_USERINFO"
+    })
   },
   components: {
     myHeader
@@ -84,7 +117,7 @@ export default {
     .input-container {
       .flex();
       padding: 0.2rem;
-      height: .6rem;
+      height: 0.6rem;
       border-bottom: 1px solid #f1f1ff;
       input {
         .sc(0.16rem, #666);
@@ -93,41 +126,41 @@ export default {
         .flex();
         align-items: center;
         background-color: #ccc;
-        .wh(.5rem, 0.2rem);
-        padding: 0 .1rem;
+        .wh(0.5rem, 0.2rem);
+        padding: 0 0.1rem;
         border: 1px;
         .border-radius(8px);
         position: relative;
         .circle-button {
           position: absolute;
-          left: -.05rem;
+          left: -0.05rem;
           .wh(0.35rem, 0.35rem);
           .border-radius(50%);
           box-shadow: 0 0.026667rem 0.053333rem 0 rgba(0, 0, 0, 0.1);
           background-color: #f1f1f1;
-          transition: all .3s;
+          transition: all 0.3s;
         }
         .circle-right {
-          transform: translateX(.35rem);
+          transform: translateX(0.35rem);
         }
         span {
           text-align: center;
-          .sc(.12rem, #fff);
+          .sc(0.12rem, #fff);
         }
       }
       .identify {
         .flex();
         align-items: center;
         img {
-          .wh(.7rem, .3rem);
-          margin-right: .1rem;
+          .wh(0.7rem, 0.3rem);
+          margin-right: 0.1rem;
         }
         .change-img {
           flex: 1;
           .flex();
           flex-direction: column;
           p {
-            .sc(.12rem, #666);
+            .sc(0.12rem, #666);
           }
           p:nth-of-type(2) {
             color: @blue;
@@ -135,6 +168,22 @@ export default {
         }
       }
     }
+  }
+  .login—tips {
+    .sc(0.12rem, rgb(241, 15, 15));
+    padding: 0.1rem 0.1rem 0;
+  }
+  .login-button {
+    background-color: rgb(76, 217, 100);
+    .sc(0.14rem);
+    text-align: center;
+    padding: 0.1rem 0;
+    margin: 0.2rem;
+    .border-radius(5px);
+  }
+  .reset {
+    .sc(0.14rem, @blue);
+    text-align: right;
   }
 }
 </style>

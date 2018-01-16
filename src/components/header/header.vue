@@ -15,6 +15,7 @@
 
 
 <script>
+import { mapActions, mapGetters } from "vuex"
 export default {
   data () {
     return {
@@ -23,7 +24,7 @@ export default {
     }
   },
   computed: {
-    
+    ...mapGetters(["userInfo"])
   },
   props: {
     title: {//头部标题
@@ -47,6 +48,9 @@ export default {
     this.isHome()
     this.isCity()
   },
+  mounted () {
+    this.getUser()
+  },
   methods: {
     back() {
       this.$router.go(-1)
@@ -64,7 +68,10 @@ export default {
       } else {
         return this._isCity = false
       }
-    }
+    },
+    ...mapActions([
+      "getUser"
+    ])
   }
 }
 </script>

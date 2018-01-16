@@ -149,14 +149,14 @@ const mutations = {
   },
   [types.INIT_SET_BUYFOODLIST](state) {
     let initBuyFoodList = JSON.parse(getStore("buyFoodList"))
-    if(initBuyFoodList) {
+    if (initBuyFoodList) {
       state.buyFoodList = initBuyFoodList
     }
   },
   [types.CLEAR_BUYFOODLIST](state, shopId) {
-    let index =0
-    state.buyFoodList.forEach( (v, i) => {
-      if(v.restaurant_id == shopId) {
+    let index = 0
+    state.buyFoodList.forEach((v, i) => {
+      if (v.restaurant_id == shopId) {
         index = i
       }
     })
@@ -168,6 +168,20 @@ const mutations = {
   },
   [types.SET_SHOPDETAIL](state, shopDetail) {
     state.shopDetail = shopDetail
+  },
+  [types.SET_USERINFO](state, userInfo) {
+    state.userInfo = userInfo
+    setStore("userId", userInfo.user_id)
+  },
+  [types.RECODE_USERINFO](state, info) {
+    if (state.userInfo && state.userInfo.username !== info.username) {
+      return
+    }
+    if (!info.message) {
+      state.userInfo = { ...info }
+    } else {
+      state.userInfo = null
+    }
   }
 }
 
