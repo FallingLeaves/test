@@ -373,3 +373,19 @@ export const ratingsTags = id => {
     )
   })
 }
+/**
+ * 获取图片验证码
+ */
+export const getcaptchas = () => {
+  let url = "http://cangdu.org:8001/v1/captchas"
+  return new Promise((resolve, reject) => {
+    Vue.http.post(url).then(
+      res => {
+        resolve(res)
+      },
+      err => {
+        reject(err)
+      }
+    )
+  })
+}

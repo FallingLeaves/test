@@ -1,7 +1,7 @@
 <template>
   <div class="buy">
     <img src="src/assets/img/reduce.svg" alt="" @click="reduce" v-if="num>0||show">
-    <input type="number" id="" v-model="num" v-if="num>0||show">
+    <input type="number" id="" v-model.number="num" v-if="num>0||show">
     <img src="src/assets/img/add.svg" alt="" @click="add">
   </div>
 </template>
