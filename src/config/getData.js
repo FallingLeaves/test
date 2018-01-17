@@ -399,14 +399,11 @@ export const login = (username, password, captcha_code) => {
   let url = "http://cangdu.org:8001/v2/login"
   return new Promise((resolve, reject) => {
     Vue.http
-      .post(
-        url,
-        {
-          username: username,
-          password: password,
-          captcha_code: captcha_code
-        }
-      )
+      .post(url, {
+        username: username,
+        password: password,
+        captcha_code: captcha_code
+      })
       .then(
         res => {
           resolve(res)
@@ -438,5 +435,21 @@ export const getUserInfo = user_id => {
           reject(err)
         }
       )
+  })
+}
+/**
+ * 退出登录
+ */
+export const signout = () => {
+  let url = "http://cangdu.org:8001/v2/signout"
+  return new Promise((resolve, reject) => {
+    Vue.http.get(url).then(
+      res => {
+        resolve(res)
+      },
+      err => {
+        reject(err)
+      }
+    )
   })
 }

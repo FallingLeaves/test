@@ -119,6 +119,7 @@ export default {
     },
     selectTag(index) {
       this.tagIndex = index
+      this.ratingObj.limit = 10
       this.initRatingObj()
     },
     initRatingObj() {
