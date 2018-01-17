@@ -2,7 +2,6 @@
   <transition name="slide-left">
     <div class="view">
       <shop-top :id="getId"></shop-top>
-      <router-view></router-view>
       <nav>
         <div v-for="(item, index) in title">
           <span :class="{active:currentIndex==index}" @click="choose(index)">{{item}}</span>
@@ -10,6 +9,7 @@
       </nav>
       <shop-food :id="getId" class="shop-food" @myChange="myChange" v-show="currentIndex==0"></shop-food>
       <commit :id="getId" v-show="currentIndex==1"></commit>
+      <router-view></router-view>
     </div>
   </transition>
 </template>
@@ -54,11 +54,11 @@ export default {
 .slide-left-enter-active,
 .slide-left-leave-active {
   transition: transform 0.5s;
-  transform-origin: left;
+  transform-origin: top;
 }
 .slide-left-enter,
 .slide-left-leave-active {
-  transform: translateX(100%);
+  transform: translateY(100%);
 }
 .view {
   position: absolute;

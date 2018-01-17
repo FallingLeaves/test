@@ -65,7 +65,6 @@ export default {
       isBack: false,
       site: {},
       foodSort: [],
-      // FOOD_IMG_BASE_URL: "https://fuss10.elemecdn.com",
       FOOD_IMG_BASE_URL,
       longitude: "",
       latitude: "",
@@ -87,9 +86,12 @@ export default {
   },
   methods: {
     _mySite() {
+      if(!this.$route.query.geohash) {
+        this.$router.go(-1)
+        return
+      }
       mySite(this.$route.query.geohash).then(
         res => {
-          //console.log(res.body)
           this.site = res.body
         },
         err => {
@@ -100,7 +102,6 @@ export default {
     _footSort() {
       foodSort().then(
         res => {
-          //console.log(res.body)
           res.body.forEach(item => {
             item.image_url = this.FOOD_IMG_BASE_URL + item.image_url
           })

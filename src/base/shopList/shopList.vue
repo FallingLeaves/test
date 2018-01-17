@@ -41,11 +41,9 @@ import { shopList } from "@/config/getData"
 import { SHOP_IMG_BASE_PATH } from "@/config/env"
 import Rating from '@/base/rating/rating'
 import { mapMutations } from "vuex"
-import Bus from '@/config/bus'
 export default {
   data () {
     return {
-      // SHOP_IMG_BASE_PATH: "http://cangdu.org:8001/img/",
       SHOP_IMG_BASE_PATH,
       queryObj: {},
       shopList: [],
@@ -97,10 +95,7 @@ export default {
     this.initQueryObj()
   },
   destroyed () {
-    // Bus.$emit("packingFee", {
-    //   min_packing_fee: this.shopList[this.shopIndex].float_minimum_order_amount,
-    //   float_delivery_fee: this.shopList[this.shopIndex].float_delivery_fee
-    // })
+    
   },
   methods: {
     initQueryObj() {//初始化请求参数
@@ -120,7 +115,6 @@ export default {
     _shopList() {
       shopList(this.queryObj).then(
         res => {
-          //console.log(res.body)
           this.shopList = res.body
           this.setShopList(this.shopList)
         },
@@ -141,12 +135,6 @@ export default {
     Rating
   },
   watch: {
-    // queryObj: {
-    //   handler() {
-    //     this.initQueryObj()
-    //   },
-    //   deep: true
-    // },
     limit() {
       this.initQueryObj()
     },

@@ -56,7 +56,6 @@ export default {
     }
   },
   computed: {
-    // ...mapGetters(["buyFoodList"]),
     getBuyFoodList() {
       return this.$store.getters.buyFoodList
     },
@@ -109,7 +108,6 @@ export default {
                   if (v3.food_id == this.food_id) {
                     let buyFood = v3
                     this.num = parseInt(buyFood.food_num)
-                    // console.log(this.num)
                   }
                 })
               }
@@ -142,7 +140,6 @@ export default {
       })
     },
     getCartTime() {
-      // console.log("state change")
       this.initNum()
       this.$emit("shopping", {
         num: Number(this.num),

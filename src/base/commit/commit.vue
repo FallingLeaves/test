@@ -79,7 +79,6 @@ export default {
   },
   data() {
     return {
-      // FOOD_IMG_BASE_URL: "https://fuss10.elemecdn.com",
       FOOD_IMG_BASE_URL,
       scorses: {},
       tags: [],

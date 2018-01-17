@@ -1,47 +1,52 @@
 <template>
   <div class="shopDetail-view" v-if="shopDetail">
     <my-header :title="title" :isSearch="isSearch" :isBack="isBack" :isLogin="isLogin"></my-header>
-    <div class="actAndAttr">
-      <h5>活动与属性</h5>
-      <ul v-if="actAndAttr.length">
-        <li v-for="(item, index) in actAndAttr" :key="index">
-          <div :style="{backgroundColor:`#${item.icon_color}`}" class="item">{{item.icon_name}}</div>
-          <div>{{item.description}}<span>（APP专享）</span></div>
-        </li>
-      </ul>
-    </div>
-    <div class="food-safety">
-      <router-link :to="`/shopDetail/${shopDetail.id}/FoodSafety`">
-        <header @click="enterFoodSafety">
-          <h5>食品监督安全公示</h5>
-          <div>企业认证详情</div>
-        </header>
-      </router-link>
-      <section>
-        <img src="src/assets/img/cry.svg" alt="" v-if="shopDetail.status==0">
-        <img src="src/assets/img/laugh.svg" alt="" v-if="shopDetail.status==1">
-        <div>
-          <div>监督检查结果：<span v-if="shopDetail.status==0" style="color:red">差</span><span v-if="shopDetail.status==1" style="color: green">优</span></div>
-          <div>检查日期：{{shopDetail.identification.licenses_date}}</div>
+    <scroll :data="actAndAttr" class="detail-scroll">
+      <div>
+        <div class="actAndAttr">
+          <h5>活动与属性</h5>
+          <ul v-if="actAndAttr.length">
+            <li v-for="(item, index) in actAndAttr" :key="index">
+              <div :style="{backgroundColor:`#${item.icon_color}`}" class="item">{{item.icon_name}}</div>
+              <div>{{item.description}}<span>（APP专享）</span></div>
+            </li>
+          </ul>
         </div>
-      </section>
-    </div>
-    <div class="shop-info">
-      <h5>商家信息</h5>
-      <ul>
-        <li>{{shopDetail.name}}</li>
-        <li>地址：{{shopDetail.address}}</li>
-        <li>营业时间：{{shopDetail.opening_hours[0]}}</li>
-        <li class="arrow">营业执照</li>
-        <li class="arrow">餐饮服务许可证</li>
-      </ul>
-    </div>
+        <div class="food-safety">
+          <router-link :to="`/shop/${shopDetail.id}/detail/foodSafety`">
+            <header>
+              <h5>食品监督安全公示</h5>
+              <div>企业认证详情</div>
+            </header>
+          </router-link>
+          <section>
+            <img src="src/assets/img/cry.svg" alt="" v-if="shopDetail.status==0">
+            <img src="src/assets/img/laugh.svg" alt="" v-if="shopDetail.status==1">
+            <div>
+              <div>监督检查结果：<span v-if="shopDetail.status==0" style="color:red">差</span><span v-if="shopDetail.status==1" style="color: green">优</span></div>
+              <div>检查日期：{{shopDetail.identification.licenses_date}}</div>
+            </div>
+          </section>
+        </div>
+        <div class="shop-info">
+          <h5>商家信息</h5>
+          <ul>
+            <li>{{shopDetail.name}}</li>
+            <li>地址：{{shopDetail.address}}</li>
+            <li>营业时间：{{shopDetail.opening_hours[0]}}</li>
+            <li class="arrow">营业执照</li>
+            <li class="arrow">餐饮服务许可证</li>
+          </ul>
+        </div>
+      </div>
+    </scroll>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import myHeader from "@/components/header/header"
-import { shop } from "@/config/getData"
+import Scroll from "@/base/scroll/scroll"
 import { mapGetters } from "vuex"
 export default {
   data() {
@@ -50,12 +55,10 @@ export default {
       isSearch: false,
       isBack: true,
       isLogin: false,
-      actAndAttr: [],
-      // shopInfo: {}
+      actAndAttr: []
     }
   },
   created() {
-    // this._shop()
     this.test()
   },
   computed: {
@@ -68,33 +71,30 @@ export default {
         return
       }
       this.actAndAttr = this.shopDetail.activities.concat(this.shopDetail.supports)
-    },
-    _shop() {
-      shop(this.$route.params.id).then(
-        res => {
-          this.shopInfo = res.body
-          this.actAndAttr = res.body.activities.concat(res.body.supports)
-        },
-        err => {
-          console.log(err)
-        }
-      )
-    },
-    enterFoodSafety() {
-      // this.$router.push({path: `/shopDetail/${this.shopInfo.id}/FoodSafety`})
     }
   },
   components: {
-    myHeader
+    myHeader,
+    Scroll
   }
 }
 </script>
 
 <style lang="less" scoped>
-@import "../../style/mixin.less";
+@import "../../../style/mixin.less";
 .shopDetail-view {
   padding-top: 0.46rem;
   background-color: rgb(235, 235, 235);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 11;
+  .detail-scroll {
+    height: 100%;
+    overflow: hidden;
+  }
   .actAndAttr {
     background-color: #fff;
     margin-bottom: .1rem;

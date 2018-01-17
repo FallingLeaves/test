@@ -51,7 +51,6 @@ import TabBar from "@/components/tabBar/tabBar"
 export default {
   data() {
     return {
-      // SHOP_IMG_BASE_PATH: "http://cangdu.org:8001/img/",
       SHOP_IMG_BASE_PATH,
       title: "搜索",
       isSearch: false,
@@ -91,7 +90,6 @@ export default {
         this.showHistory = false
         searchRestaurants(this.geohash, this.keyword).then(
           res => {
-            // console.log(res.body)
             this.placeList = res.body
             this.noPlace = res.body.length ? false : true
           },

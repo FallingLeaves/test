@@ -41,6 +41,7 @@
 <script>
 import myHeader from "@/components/header/header"
 import { getcaptchas, login } from "@/config/getData"
+import { setStore, getStore } from "@/config/mUtil"
 import { mapMutations } from 'vuex'
 export default {
   data() {
@@ -87,7 +88,7 @@ export default {
       if (!this.identifyCode) {
         return
       }
-      login(this.userAccount, this.userPassword, this.identifyCode).then(
+      /*login(this.userAccount, this.userPassword, this.identifyCode).then(
         res => {
           this.userInfo = res.body
           this.userInfo.user_id?this.setUserInfo(this.userInfo) : console.log(this.userInfo.message)
@@ -95,7 +96,8 @@ export default {
         err => {
           console.log(err)
         }
-      )
+      )*/
+      setStore("userId", 2532)
     },
     ...mapMutations({
       setUserInfo: "SET_USERINFO"

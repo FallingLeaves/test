@@ -399,11 +399,14 @@ export const login = (username, password, captcha_code) => {
   let url = "http://cangdu.org:8001/v2/login"
   return new Promise((resolve, reject) => {
     Vue.http
-      .post(url, {
-        username,
-        password,
-        captcha_code
-      })
+      .post(
+        url,
+        {
+          username: username,
+          password: password,
+          captcha_code: captcha_code
+        }
+      )
       .then(
         res => {
           resolve(res)

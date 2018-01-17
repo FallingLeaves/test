@@ -67,7 +67,6 @@ export default {
   },
   data() {
     return {
-      // SHOP_IMG_BASE_PATH: "http://cangdu.org:8001/img/",
       SHOP_IMG_BASE_PATH,
       shopInfo: {},
       showActivities: false
@@ -98,7 +97,7 @@ export default {
       this.showActivities = false
     },
     enterShopDetail() {
-      this.$router.push({path: `/shopDetail/${this.id}`})
+      this.$router.push({path: `/shop/${this.id}/detail`})
     },
     ...mapMutations({
       setShopDetail: "SET_SHOPDETAIL"

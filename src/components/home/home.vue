@@ -104,7 +104,6 @@ export default {
       sortCityGroup.sort((a, b) => {
         return a.title.charCodeAt(0) - b.title.charCodeAt(0)
       })
-      //console.log(sortCityGroup)
       this.sortCityGroup = sortCityGroup
     }
   },

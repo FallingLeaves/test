@@ -42,7 +42,7 @@ export default {
 footer {
   .flex();
   position: fixed;
-  z-index: 1000;
+  z-index: 10;
   height: .46rem;
   bottom: 0;
   width: 100%;

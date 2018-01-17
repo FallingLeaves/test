@@ -1,6 +1,6 @@
 <template>
   <transition name="fade" mode="out-in">
-    <div v-if="shopDetail">
+    <div v-if="shopDetail" class="safety-view">
       <my-header :title="title" :isSearch="isSearch" :isBack="isBack" :isLogin="isLogin"></my-header>
       <scroll class="scroll" ref="scroll">
         <div>
@@ -91,7 +91,6 @@
 <script>
 import myHeader from "@/components/header/header"
 import Scroll from "@/base/scroll/scroll"
-import { shop } from "@/config/getData"
 import { SHOP_IMG_BASE_PATH } from "@/config/env"
 import { mapGetters } from "vuex"
 export default {
@@ -101,13 +100,10 @@ export default {
       isSearch: false,
       isBack: true,
       isLogin: false,
-      // SHOP_IMG_BASE_PATH: "http://cangdu.org:8001/img/",
-      SHOP_IMG_BASE_PATH,
-      // shopInfo: {}
+      SHOP_IMG_BASE_PATH
     }
   },
   created() {
-    // this._shop()
     this.test()
   },
   computed: {
@@ -119,16 +115,6 @@ export default {
         this.$router.go(-1)
         return
       }
-    },
-    _shop() {
-      shop(this.$route.params.id).then(
-        res => {
-          this.shopInfo = res.body
-        },
-        err => {
-          console.log(err)
-        }
-      )
     },
     loadImage() {
       this.$refs.scroll && this.$refs.scroll.refresh()
@@ -142,7 +128,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../style/mixin.less";
+@import "../../../../style/mixin.less";
 .fade-enter,
 .fade-leave-active {
   opacity: 0;
@@ -151,6 +137,17 @@ export default {
 .fade-enter-active,
 .fade-leave-active {
   transition: all 1s;
+}
+
+.safety-view {
+  background-color: #f5f5f5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 12;
+  overflow: hidden;
 }
 
 .scroll {

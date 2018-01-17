@@ -45,17 +45,14 @@ export default {
   },
   methods: {
     selectShop(id) {
-      // console.log(id)
       this.limit = 20
       this.restaurant_category_ids = id
     },
     selectOrder(order_by) {
-      // console.log(order_by)
       this.limit = 20
       this.order_by = order_by
     },
     selectAttr(arr) {
-      // console.log(arr)
       this.limit = 20
       this.support_ids = arr
     },

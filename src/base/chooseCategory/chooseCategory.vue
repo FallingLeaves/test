@@ -36,9 +36,7 @@
       <section class="order-sort" ref="orderSort" :class="{show:sort[1].checked}">
         <ul>
           <li v-for="(item, index) in order" :key="index" @click="chooseOrder(item.order_by)" :class="{active : order_by == item.order_by}">
-            <!-- <img :src="item.img_url" alt=""> -->
             <img v-lazy="item.img_url" alt="">
-            <!-- <img src="../../assets/img/address.png" alt=""> -->
             <div>{{item.title}}</div>
           </li>
         </ul>
@@ -70,7 +68,6 @@
 </template>
 
 <script>
-// import { hasClass, addClass, removeClass, toggleClass } from "@/config/dom"
 import { shopCategory, delivery, shopAttribute } from "@/config/getData"
 import { FOOD_IMG_BASE_URL } from "@/config/env"
 import { mapGetters } from "vuex"
@@ -86,9 +83,7 @@ export default {
       shopCategory: [],
       currentIndex: 1,
       foodId: null,
-      // restaurant_category_ids: null,
       order_by: 4,
-      // FOOD_IMG_BASE_URL: "https://fuss10.elemecdn.com",
       FOOD_IMG_BASE_URL,
       order: [
         { title: "智能排序", img_url: "src/assets/img/order.png", order_by: 4 },
@@ -147,7 +142,6 @@ export default {
       }
       shopCategory(this.latitude, this.longitude).then(
         res => {
-          // console.log(res.body)
           res.body.forEach(item => {
             if (item.image_url) {
               item.image_url =
@@ -200,11 +194,7 @@ export default {
     chooseShop(id, name) {
       this.foodId = id
       this.$refs.chooseItem[0].innerHTML = name
-      // toggleClass(this.$refs.arrow[0], "reserve")
-      // toggleClass(this.$refs.cls[0], "active")
-      // toggleClass(this.$refs.shopSort, "show")
       this.sort[0].checked = false
-      // this.restaurant_category_ids = id
       this.$emit("selectShop", id)
     },
     chooseOrder(order_by) {
@@ -239,7 +229,6 @@ export default {
           arr.push(v.id)
         }
       })
-      // console.log(arr)
       this.$emit("selectAttr", arr)
     },
     changeUrl(str) {

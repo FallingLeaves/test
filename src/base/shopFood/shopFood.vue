@@ -174,7 +174,6 @@ export default {
   },
   data() {
     return {
-      // SHOP_IMG_BASE_PATH: "http://cangdu.org:8001/img/",
       SHOP_IMG_BASE_PATH,
       foodList: [],
       currentIndex: 0,
@@ -194,7 +193,6 @@ export default {
     }
   },
   computed: {
-    // ...mapGetters(["buyFoodList"]),
     getBuyFoodList() {
       return this.$store.getters.buyFoodList
     }
@@ -202,20 +200,15 @@ export default {
   created() {
     this.getFoodList()
     this.getFee()
-    // Bus.$on("packingFee", obj => {
-    //   this.min_packing_fee = obj.min_packing_fee
-    //   this.float_delivery_fee = obj.float_delivery_fee
-    // })
   },
   mounted() {
-    // this.initCategoryNum()
+    
   },
   beforeDestroy() {
-    // Bus.$off("packingFee", this.myhandle)
+    
   },
   methods: {
     getFee() {
-      // console.log(this.$route.query)
       this.min_packing_fee = parseInt(this.$route.query.min_packing_fee)
       this.float_delivery_fee = parseInt(this.$route.query.float_delivery_fee)
     },
@@ -314,7 +307,6 @@ export default {
     },
     shopping(obj) {
       this.initCategoryNum()
-      // this.$emit("myChange")
     },
     close() {
       this.show = false

@@ -47,7 +47,6 @@ export default {
     _cityChoose() {
       cityChoose(this.$route.params.id).then(
         res => {
-          //console.log(res.body)
           this.city = res.body
         },
         err => {
@@ -66,7 +65,6 @@ export default {
       if (this.keyword) {
         citySearch(this.$route.params.id, this.keyword).then(
           res => {
-            //console.log(res)
             this.placeList = res.body
             this.historyTitle = false
             this.noPlace = res.body.length? false : true

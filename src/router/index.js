@@ -9,8 +9,9 @@ import Order from "@/components/order/order"
 import Profile from "@/components/profile/profile"
 import Food from "@/components/food/food"
 import Shop from "@/components/shop/shop"
-import ShopDetail from "@/components/shopDetail/shopDetail"
-import FoodSafety from "@/components/foodSafety/foodSafety"
+import ShopDetail from "@/components/shop/children/shopDetail"
+import FoodSafety from "@/components/shop/children/children/foodSafety"
+import Info from "@/components/profile/children/info"
 
 Vue.use(Router)
 
@@ -47,7 +48,13 @@ export default new Router({
     },
     {
       path: "/profile",
-      component: Profile
+      component: Profile,
+      children: [
+        {
+          path: "info",
+          component: Info
+        }
+      ]
     },
     {
       path: "/food/:category/:id",
@@ -55,15 +62,19 @@ export default new Router({
     },
     {
       path: "/shop/:id",
-      component: Shop
-    },
-    {
-      path: "/shopDetail/:id",
-      component: ShopDetail
-    },
-    {
-      path: "/shopDetail/:id/foodSafety",
-      component: FoodSafety
+      component: Shop,
+      children: [
+        {
+          path: "detail",
+          component: ShopDetail,
+          children: [
+            {
+              path: "foodSafety",
+              component: FoodSafety
+            }
+          ]
+        }
+      ]
     }
   ]
 })
