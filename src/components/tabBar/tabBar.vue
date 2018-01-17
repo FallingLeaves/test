@@ -22,17 +22,33 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapMutations, mapGetters } from "vuex"
+import { getStore } from "@/config/mUtil"
 export default {
   computed: {
     ...mapGetters([
       "geohash"
     ])
   },
+  created () {
+    this.test()
+  },
   methods: {
     go(path) {
       this.$router.push(path)
-    }
+    },
+    test() {
+      if (!this.geohash) {
+        this.setLatidute(getStore("latitude"))
+        this.setLongitude(getStore("longitude"))
+        this.setGeohash()
+      }
+    },
+    ...mapMutations({
+      setLatidute: "SET_LATITUDE",
+      setLongitude: "SET_LONGITUDE",
+      setGeohash: "SET_GEOHASH"
+    })
   }
 }
 </script>

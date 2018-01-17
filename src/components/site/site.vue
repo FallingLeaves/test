@@ -57,6 +57,7 @@ import Slider from "@/base/slider/slider"
 import Scroll from "@/base/scroll/scroll"
 import ShopList from "@/base/shopList/shopList"
 import { mapMutations, mapGetters } from "vuex"
+import { setStore, getStore, removeStore } from "@/config/mUtil"
 export default {
   data() {
     return {
@@ -86,10 +87,6 @@ export default {
   },
   methods: {
     _mySite() {
-      if(!this.$route.query.geohash) {
-        this.$router.go(-1)
-        return
-      }
       mySite(this.$route.query.geohash).then(
         res => {
           this.site = res.body
@@ -118,6 +115,9 @@ export default {
       this.setLatidute(this.latitude)
       this.setLongitude(this.longitude)
       this.setGeohash()
+      setStore("latitude", this.latitude)
+      setStore("longitude", this.longitude)
+      setStore("geohash", this.$route.query.geohash)
     },
     loadImage() {
       this.$refs.scroll && this.$refs.scroll.refresh()

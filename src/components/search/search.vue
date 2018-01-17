@@ -45,7 +45,7 @@
 import { searchRestaurants } from "@/config/getData"
 import { setStore, getStore, removeStore } from "@/config/mUtil"
 import { SHOP_IMG_BASE_PATH } from "@/config/env"
-import { mapGetters } from "vuex"
+import { mapMutations, mapGetters } from "vuex"
 import myHeader from "@/components/header/header"
 import TabBar from "@/components/tabBar/tabBar"
 export default {
@@ -69,15 +69,7 @@ export default {
   created() {
     this.getHistory()
   },
-  mounted () {
-    this.refreshback()
-  },
   methods: {
-    refreshback() {
-      if(!this.geohash) {
-        this.$router.go(-1)
-      }
-    },
     getHistory() {
       if (getStore("historySearch")) {
         this.history = JSON.parse(getStore("historySearch"))
@@ -99,15 +91,15 @@ export default {
         )
         let searchPlace = this.keyword
         let history = getStore("historySearch")
-        if(history) {
+        if (history) {
           let exist = false
           this.history = JSON.parse(history)
-          this.history.forEach(v=>{
-            if(v==searchPlace) {
+          this.history.forEach(v => {
+            if (v == searchPlace) {
               exist = true
             }
           })
-          if(!exist) {
+          if (!exist) {
             this.history.push(searchPlace)
           }
         } else {
@@ -133,8 +125,13 @@ export default {
       this.search()
     },
     enter(id) {
-      this.$router.push({ path: `/shop/${id}`})
-    }
+      this.$router.push({ path: `/shop/${id}` })
+    },
+    ...mapMutations({
+      setLatidute: "SET_LATITUDE",
+      setLongitude: "SET_LONGITUDE",
+      setGeohash: "SET_GEOHASH"
+    })
   },
   components: {
     myHeader,
@@ -142,7 +139,7 @@ export default {
   },
   watch: {
     keyword(val) {
-      if(!val) {
+      if (!val) {
         this.showHistory = true
         this.noPlace = false
       }
@@ -177,16 +174,16 @@ export default {
 }
 .title {
   .sc(0.14rem, #000);
-  padding: .1rem .2rem;
+  padding: 0.1rem 0.2rem;
 }
 .history {
   background-color: #fff;
   ul {
     li {
-      padding: .1rem .2rem;
+      padding: 0.1rem 0.2rem;
       .flex();
       align-items: center;
-      .sc(.16rem, #000);
+      .sc(0.16rem, #000);
       border-bottom: 1px solid #e4e4e4;
       &:last-of-type {
         color: @blue;
@@ -197,31 +194,31 @@ export default {
         flex: 1;
       }
       img {
-        .wh(.3rem, .3rem);
+        .wh(0.3rem, 0.3rem);
       }
     }
   }
 }
 .search-place {
   background-color: #fff;
-  .sc(.14rem, #000);
+  .sc(0.14rem, #000);
   ul {
     li {
-      height: .8rem;
-      padding: 0 .2rem;
+      height: 0.8rem;
+      padding: 0 0.2rem;
       .flex(flex-start);
       align-items: center;
       border-bottom: 1px solid #e4e4e4;
       img {
-        .wh(.5rem, .5rem);
-        margin-right: .2rem;
+        .wh(0.5rem, 0.5rem);
+        margin-right: 0.2rem;
       }
       .info {
         .flex();
         flex-direction: column;
         > div:nth-of-type(3) {
           .flex();
-        } 
+        }
       }
     }
   }
