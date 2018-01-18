@@ -154,6 +154,7 @@ export default {
       .wh(0.5rem, 0.5rem);
       .border-radius(50%);
       margin-right: 0.1rem;
+      overflow: hidden;
     }
     .user-info {
       flex: 1;

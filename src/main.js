@@ -6,6 +6,7 @@ import router from "./router"
 import FastClick from "fastclick"
 import VueResource from "vue-resource"
 import VueLazyload from "vue-lazyload"
+import VueCookie from "vue-cookie"
 import store from "./store"
 import "./config/rem"
 Vue.use(VueResource)
@@ -16,7 +17,12 @@ Vue.use(VueLazyload, {
   loading: "src/assets/img/loading.svg",
   attempt: 1
 })
-
+Vue.use(VueCookie)
+Vue.cookie.set(
+  "SID",
+  "s%3A6HV3jLkqQYOvSG2eccgbmVQcytBNk8TA.GhKYJDZBkTt1a1SWxgRRJ5WcE%2FX4K659ZUr9bxxYr4k",
+  { expires: "1Y", domain: "http://cangdu.org:8001" }
+)
 Vue.http.options.emulateJSON = true
 
 if ("addEventListener" in document) {

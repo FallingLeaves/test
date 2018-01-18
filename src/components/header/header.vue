@@ -5,7 +5,7 @@
     <span v-if="_isHome == true">ele.me</span>
     <span v-if="title" class="title">{{title}}</span>
     <div v-if="isLogin == true">
-      <router-link :to="userInfo.user_id?'/profile':'/login'">登录|注册</router-link>
+      <router-link :to="userInfo?'/profile':'/login'">登录|注册</router-link>
     </div>
     <div v-if="_isCity == true" class="choose-city">
       <router-link to="/home">切换城市</router-link>
@@ -47,9 +47,10 @@ export default {
   created () {
     this.isHome()
     this.isCity()
+    this.getUser()
   },
   mounted () {
-    this.getUser()
+    
   },
   methods: {
     back() {

@@ -2,6 +2,15 @@ import Vue from "vue"
 import VueResource from "vue-resource"
 Vue.use(VueResource)
 Vue.http.options.emulateJSON = true
+Vue.http.options.xhr = { withCredentials: true }
+import VueCookie from "vue-cookie"
+Vue.use(VueCookie)
+Vue.http.interceptors.push(function(request, next) {
+  //拦截器
+  // 跨域携带cookie
+  request.credentials = true
+  next()
+})
 
 export const cityGuess = () => {
   let url = "http://cangdu.org:8001/v1/cities"
@@ -396,14 +405,20 @@ export const getcaptchas = () => {
  * @param {*验证码} captcha_code
  */
 export const login = (username, password, captcha_code) => {
+  console.log(captcha_code)
+  Vue.cookie.delete("cap", { domain: "http://cangdu.org:8001" })
+  Vue.cookie.set("cap", captcha_code, {
+    expires: "5M",
+    domain: "http://cangdu.org:8001"
+  })
   let url = "http://cangdu.org:8001/v2/login"
   return new Promise((resolve, reject) => {
     Vue.http
-      .post(url, {
-        username: username,
-        password: password,
-        captcha_code: captcha_code
-      })
+      .post(
+        url,
+        { username: username, password: password, captcha_code: captcha_code },
+        { credentials: true }
+      )
       .then(
         res => {
           resolve(res)

@@ -3,7 +3,7 @@ import { getStore } from "@/config/mUtil"
 import { getUserInfo } from "@/config/getData"
 
 export const getUser = function({ commit, state }) {
-  let user_id = JSON.parse(getStore("userId"))
+  let user_id = getStore("userId")
   getUserInfo(user_id).then(
     res => {
       let info = res.body
