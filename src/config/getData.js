@@ -468,21 +468,45 @@ export const signout = () => {
     )
   })
 }
-/**
+/**有问题
  * 上传图片
- * @param {*上传文件} file 
- * @param {*类型：shop：商铺图片 0，food：食品图片 1，avatar：头像 2} type 
+ * @param {*上传文件} file
+ * @param {*类型：shop：商铺图片 0，food：食品图片 1，avatar：头像 2} type
  */
 export const uploadAvatar = (file, type, user_id) => {
   let uploadType = ["shop", "food", "avatar"]
   let url = `http://cangdu.org:8001/eus/v1/users/${user_id}/${uploadType[type]}`
   return new Promise((resolve, reject) => {
     Vue.http
-      .post(url, { file: file }, { headers: { "Content-Type": "multipart/form-data" } })
-      .then(res => {
+      .post(
+        url,
+        { file: file },
+        { headers: { "Content-Type": "multipart/form-data" } }
+      )
+      .then(
+        res => {
           resolve(res)
-        }, err => {
+        },
+        err => {
           reject(err)
-        })
+        }
+      )
+  })
+}
+/**
+ * 获取送货地址
+ * @param {*用户id} user_id 
+ */
+export const getAddresses = user_id => {
+  let url = `http://cangdu.org:8001/v1/users/${user_id}/addresses`
+  return new Promise((resolve, reject) => {
+    Vue.http.get(url).then(
+      res => {
+        resolve(res)
+      },
+      err => {
+        reject(err)
+      }
+    )
   })
 }

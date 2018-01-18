@@ -15,7 +15,7 @@
           <div class="info-iten-name">用户名</div>
           <div class="user-name">{{userInfo.username}}</div>
         </li>
-        <li class="info-item">
+        <li class="info-item" @click="setAddresses">
           <div class="info-iten-name">收货地址</div>
         </li>
       </ul>
@@ -90,6 +90,9 @@ export default {
     },
     setUsername() {
       this.$router.push({ path: "/profile/info/setusername" })
+    },
+    setAddresses() {
+      this.$router.push({ path: "/profile/info/setAddresses" })
     },
     ...mapMutations({
       resetAvatar:"RESET_AVATAR"
