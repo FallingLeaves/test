@@ -495,7 +495,7 @@ export const uploadAvatar = (file, type, user_id) => {
 }
 /**
  * 获取送货地址
- * @param {*用户id} user_id 
+ * @param {*用户id} user_id
  */
 export const getAddresses = user_id => {
   let url = `http://cangdu.org:8001/v1/users/${user_id}/addresses`
@@ -508,5 +508,78 @@ export const getAddresses = user_id => {
         reject(err)
       }
     )
+  })
+}
+/**
+ * 新增收货地址
+ * @param {*} obj
+ */
+export const addAddress = obj => {
+  let url = `http://cangdu.org:8001/v1/users/${obj.user_id}/addresses`
+  return new Promise((resolve, reject) => {
+    Vue.http
+      .post(url, {
+        user_id: obj.user_id, //用户id
+        address: obj.address, //地址
+        address_detail: obj.address_detail, //地址详情
+        geohash: obj.geohash, //经纬度
+        name: obj.name, //收货人姓名
+        phone: obj.phone, //电话号码
+        tag: obj.tag, //标签
+        sex: obj.sex, //性别， 1:男，2:女
+        poi_type: obj.poi_type || 0, //类型，默认：0
+        phone_bk: obj.phone_bk, //备注电话
+        tag_type: obj.tag_type //标签类型，2:家，3:学校，4:公司
+      })
+      .then(
+        res => {
+          resolve(res)
+        },
+        err => {
+          reject(err)
+        }
+      )
+  })
+}
+/**
+ * 删除收货地址
+ * @param {*用户id} user_id
+ * @param {*收货地址id} address_id
+ */
+export const delAddress = (user_id, address_id) => {
+  let url = `http://cangdu.org:8001/v1/users/${user_id}/addresses/${address_id}`
+  return new Promise((resolve, reject) => {
+    Vue.http.delete(url).then(
+      res => {
+        resolve(res)
+      },
+      err => {
+        reject(err)
+      }
+    )
+  })
+}
+/**
+ * 搜索收货地址
+ * @param {*地址关键字} keyword 
+ */
+export const addressSearch = keyword => {
+  let url = "http://cangdu.org:8001/v1/pois"
+  return new Promise((resolve, reject) => {
+    Vue.http
+      .get(url, { 
+        params: { 
+          type: "nearby", 
+          keyword: keyword 
+        } 
+      })
+      .then(
+        res => {
+          resolve(res)
+        },
+        err => {
+          reject(err)
+        }
+      )
   })
 }
