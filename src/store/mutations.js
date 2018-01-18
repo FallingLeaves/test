@@ -182,6 +182,12 @@ const mutations = {
     } else {
       state.userInfo = null
     }
+  },
+  [types.RESET_AVATAR](state, avatar) {
+    state.userInfo = Object.assign({}, state.userInfo, { avatar })
+  },
+  [types.RESET_NAME](state, username) {
+    state.userInfo = Object.assign({}, state.userInfo, { username })
   }
 }
 

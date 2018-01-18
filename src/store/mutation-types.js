@@ -19,3 +19,7 @@ export const SET_SHOPDETAIL = "SET_SHOPDETAIL"
 export const SET_USERINFO = "SET_USERINFO"
 
 export const RECODE_USERINFO = "RECODE_USERINFO"
+
+export const RESET_AVATAR = "RESET_AVATAR"
+
+export const RESET_NAME = "RESET_NAME"

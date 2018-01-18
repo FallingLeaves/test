@@ -12,6 +12,7 @@ import Shop from "@/components/shop/shop"
 import ShopDetail from "@/components/shop/children/shopDetail"
 import FoodSafety from "@/components/shop/children/children/foodSafety"
 import Info from "@/components/profile/children/info"
+import SetUsername from "@/components/profile/children/children/setUsername"
 
 Vue.use(Router)
 
@@ -52,7 +53,13 @@ export default new Router({
       children: [
         {
           path: "info",
-          component: Info
+          component: Info,
+          children: [
+            {
+              path: "setusername",
+              component: SetUsername
+            }
+          ]
         }
       ]
     },
