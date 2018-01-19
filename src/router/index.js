@@ -13,6 +13,7 @@ import ShopDetail from "@/components/shop/children/shopDetail"
 import FoodSafety from "@/components/shop/children/children/foodSafety"
 import Info from "@/components/profile/children/info"
 import Serverice from "@/components/profile/children/serverice"
+import Member from "@/components/profile/children/member"
 import SetUsername from "@/components/profile/children/children/setUsername"
 import SetAddresses from "@/components/profile/children/children/setAddresses"
 import QuestionDetail from "@/components/profile/children/children/questionDetail"
@@ -77,6 +78,10 @@ export default new Router({
               component: QuestionDetail
             }
           ]
+        },
+        {
+          path: "member",
+          component: Member
         }
       ]
     },

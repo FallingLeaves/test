@@ -79,7 +79,7 @@ export default {
         {
           icon: "src/assets/img/member.svg",
           item: "饿了么会员卡",
-          linkTo: "/member"
+          linkTo: "/profile/member"
         },
         {
           icon: "src/assets/img/server.svg",
