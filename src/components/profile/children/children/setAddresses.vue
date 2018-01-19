@@ -1,6 +1,17 @@
 <template>
   <div class="addresses-view">
     <my-header :title="title" :isSearch="isSearch" :isBack="isBack" :isLogin="isLogin"></my-header>
+    <section v-if="addressess.length" class="addresses">
+      <ul>
+        <li v-for="(address, index) in addressess" :key="index">
+          <div>
+            <p>{{address.address}}</p>
+            <p>{{address.phone}}</p>
+          </div>
+          <img src="src/assets/img/delete.svg" alt="">
+        </li>
+      </ul>
+    </section>
   </div>
 </template>
 
@@ -53,5 +64,24 @@ export default {
   z-index: 11;
   background-color: #f5f5f5;
   padding-top: 0.46rem;
+  .addresses {
+    ul {
+      li {
+        .flex();
+        align-items: center;
+        background-color: #fff;
+        padding: .1rem;
+        div {
+          flex: 1;
+          p {
+            .sc(.14rem, #333)
+          }
+        }
+        img {
+          .wh(.3rem, .3rem);
+        }
+      }
+    }
+  }
 }
 </style>

@@ -13,3 +13,5 @@ export const cartTime = state => state.cartTime
 export const shopDetail = state => state.shopDetail
 
 export const userInfo = state => state.userInfo
+
+export const questions = state => state.questions

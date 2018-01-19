@@ -7,7 +7,8 @@ const state = {
   cartTime:"",//购买商品存入vuex中的时间
   shopDetail: null,
   userInfo: null,
-  addresses: []
+  addresses: [],
+  questions: null
 }
 
 export default state

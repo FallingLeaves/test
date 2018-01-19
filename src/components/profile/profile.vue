@@ -84,7 +84,7 @@ export default {
         {
           icon: "src/assets/img/server.svg",
           item: "服务中心",
-          linkTo: "/server"
+          linkTo: "/profile/server"
         },
         {
           icon: "src/assets/img/download.svg",

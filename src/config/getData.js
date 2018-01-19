@@ -561,17 +561,17 @@ export const delAddress = (user_id, address_id) => {
 }
 /**
  * 搜索收货地址
- * @param {*地址关键字} keyword 
+ * @param {*地址关键字} keyword
  */
 export const addressSearch = keyword => {
   let url = "http://cangdu.org:8001/v1/pois"
   return new Promise((resolve, reject) => {
     Vue.http
-      .get(url, { 
-        params: { 
-          type: "nearby", 
-          keyword: keyword 
-        } 
+      .get(url, {
+        params: {
+          type: "nearby",
+          keyword: keyword
+        }
       })
       .then(
         res => {
@@ -581,5 +581,21 @@ export const addressSearch = keyword => {
           reject(err)
         }
       )
+  })
+}
+/**
+ * 服务中心问题说明
+ */
+export const serverCenter = () => {
+  let url = "http://cangdu.org:8001/v3/profile/explain"
+  return new Promise((resolve, reject) => {
+    Vue.http.get(url).then(
+      res => {
+        resolve(res)
+      },
+      err => {
+        reject(err)
+      }
+    )
   })
 }

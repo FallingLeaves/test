@@ -188,6 +188,9 @@ const mutations = {
   },
   [types.RESET_NAME](state, username) {
     state.userInfo = Object.assign({}, state.userInfo, { username })
+  },
+  [types.SAVE_QUESTIONS](state, questions) {
+    state.questions = questions
   }
 }
 

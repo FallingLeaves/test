@@ -12,8 +12,10 @@ import Shop from "@/components/shop/shop"
 import ShopDetail from "@/components/shop/children/shopDetail"
 import FoodSafety from "@/components/shop/children/children/foodSafety"
 import Info from "@/components/profile/children/info"
+import Serverice from "@/components/profile/children/serverice"
 import SetUsername from "@/components/profile/children/children/setUsername"
 import SetAddresses from "@/components/profile/children/children/setAddresses"
+import QuestionDetail from "@/components/profile/children/children/questionDetail"
 
 Vue.use(Router)
 
@@ -63,6 +65,16 @@ export default new Router({
             {
               path: "setAddresses",
               component: SetAddresses
+            }
+          ]
+        },
+        {
+          path: "server",
+          component: Serverice,
+          children: [
+            {
+              path: "questionDetail",
+              component: QuestionDetail
             }
           ]
         }
