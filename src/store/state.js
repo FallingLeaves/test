@@ -8,7 +8,8 @@ const state = {
   shopDetail: null,
   userInfo: null,
   addresses: [],
-  questions: null
+  questions: null,
+  vipCardPrice: null
 }
 
 export default state

@@ -25,3 +25,5 @@ export const RESET_AVATAR = "RESET_AVATAR"
 export const RESET_NAME = "RESET_NAME"
 
 export const SAVE_QUESTIONS = "SAVE_QUESTIONS"
+
+export const BUY_VIPCARD = "BUY_VIPCARD"

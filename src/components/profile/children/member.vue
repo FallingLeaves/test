@@ -5,7 +5,7 @@
       <div>
         <p class="top">为账户<span>{{userInfo.username}}</span>购买会员</p>
       </div>
-      <header>
+      <header @click="vipDesc">
         <div>会员特权</div>
         <div>会员说明<span></span></div>
       </header>
@@ -21,27 +21,30 @@
         <div>开通会员</div>
         <div class="subscriptions">
           <div>1个月<span>¥{{subscriptions}}</span></div>
-          <div>购买</div>
+          <div @click="buyVip">购买</div>
         </div>
       </section>
-      <header class="member-other">
+      <header class="member-other" @click="exchange">
         <div>兑换会员</div>
         <div>使用卡号卡密<span></span></div>
       </header>
-      <header class="member-other">
+      <header class="member-other" @click="buyList">
         <div>购买记录</div>
         <div>开发票<span></span></div>
       </header>
     </scroll>
+    <transition name="router-slid" mode="out-in">
+      <router-view class="member-next"></router-view>
+    </transition>
   </div>
 </template>
 
 <script>
 import myHeader from "@/components/header/header"
 import Scroll from "@/base/scroll/scroll"
-import { mapGetters } from "vuex"
+import { mapGetters, mapMutations } from "vuex"
 export default {
-  data () {
+  data() {
     return {
       title: "会员中心",
       isSearch: false,
@@ -49,23 +52,41 @@ export default {
       isLogin: false,
       franchise: [
         {
-          icon: "src/assets/img/sheng.jpeg", title: "减免配送费", subTitle: "每月减免30单，每日可减免3单，每单最高减4元", delivery: "蜂鸟专送专享"
+          icon: "src/assets/img/sheng.jpeg",
+          title: "减免配送费",
+          subTitle: "每月减免30单，每日可减免3单，每单最高减4元",
+          delivery: "蜂鸟专送专享"
         },
         {
-          icon: "src/assets/img/jifen.jpeg", title: "减免配送费", subTitle: "每月减免30单，每日可减免3单，每单最高减4元", delivery: "蜂鸟专送专享"
+          icon: "src/assets/img/jifen.jpeg",
+          title: "减免配送费",
+          subTitle: "每月减免30单，每日可减免3单，每单最高减4元",
+          delivery: "蜂鸟专送专享"
         }
       ],
       subscriptions: 20
     }
   },
-  created () {
-    
-  },
+  created() {},
   computed: {
     ...mapGetters(["userInfo"])
   },
   methods: {
-    
+    vipDesc() {
+      this.$router.push({ path: "/profile/member/vipDescription" })
+    },
+    buyVip() {
+      this.buyVipCard(this.subscriptions)
+    },
+    exchange() {
+      this.$router.push({ path: "/profile/member/exchangeVip" })
+    },
+    buyList() {
+      this.$router.push({ path: "/profile/member/purchaseRecords" })
+    },
+    ...mapMutations({
+      buyVipCard: "BUY_VIPCARD"
+    })
   },
   components: {
     myHeader,
@@ -91,7 +112,8 @@ export default {
     overflow: hidden;
   }
   .top {
-    .sc(.14rem, #ccc);
+    .sc(0.14rem, #ccc);
+    padding: 0.1rem 0.2rem;
     span {
       color: #000;
     }
@@ -99,15 +121,16 @@ export default {
   header {
     .flex();
     align-items: center;
-    padding: .1rem .2rem;
+    padding: 0.1rem 0.2rem;
     background-color: #fff;
     border-bottom: 1px solid #f5f5f5;
     div:nth-of-type(1) {
-      .sc(.16rem, #333);
+      .sc(0.16rem, #333);
     }
     div:nth-of-type(2) {
-      .sc(.14rem, #666);
+      .sc(0.14rem, #666);
       position: relative;
+      padding-right: 0.1rem;
       span {
         position: absolute;
         right: 0;
@@ -121,31 +144,32 @@ export default {
   }
   .franchise {
     background-color: #fff;
-    padding: .1rem .2rem;
+    padding: 0.1rem 0.2rem;
     border-bottom: 1px solid #f5f5f5;
     .flex();
     img {
-      .wh(.5rem, .5rem);
-      margin-right: .2rem;
+      .wh(0.5rem, 0.5rem);
+      margin-right: 0.2rem;
     }
     .franchise-item {
       flex: 1;
       .flex();
       flex-direction: column;
       p {
-        .sc(.16rem, #333);
+        .sc(0.16rem, #333);
       }
       div {
-        .sc(.14rem, #666);
+        .sc(0.14rem, #666);
       }
     }
   }
   .open {
     background-color: #fff;
-    padding: .1rem .2rem;
-    margin-top: .2rem;
-    >div {
-      .sc(.16rem, #333);
+    padding: 0.1rem 0.2rem;
+    margin-top: 0.2rem;
+    > div {
+      .sc(0.16rem, #333);
+      padding: 0.1rem 0;
     }
     .subscriptions {
       border-top: 1px solid #f5f5f5;
@@ -164,8 +188,28 @@ export default {
     }
   }
   .member-other {
-    margin-top: .2rem;
+    margin-top: 0.2rem;
     border: none;
+  }
+  .router-slid-enter-active,
+  .router-slid-leave-active {
+    transition: all 0.4s;
+  }
+  .router-slid-enter,
+  .router-slid-leave-active {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  .member-next {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 11;
+    background-color: #f5f5f5;
+    padding-top: 0.46rem;
+    overflow: hidden;
   }
 }
 </style>

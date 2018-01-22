@@ -191,6 +191,9 @@ const mutations = {
   },
   [types.SAVE_QUESTIONS](state, questions) {
     state.questions = questions
+  },
+  [types.BUY_VIPCARD](state, price) {
+    state.vipCardPrice = price
   }
 }
 

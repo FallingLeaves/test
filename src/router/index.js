@@ -17,6 +17,9 @@ import Member from "@/components/profile/children/member"
 import SetUsername from "@/components/profile/children/children/setUsername"
 import SetAddresses from "@/components/profile/children/children/setAddresses"
 import QuestionDetail from "@/components/profile/children/children/questionDetail"
+import VipDescription from "@/components/profile/children/children/vipDescription"
+import ExchangeVip from "@/components/profile/children/children/exchangeVip"
+import PurchaseRecords from "@/components/profile/children/children/purchaseRecords"
 
 Vue.use(Router)
 
@@ -81,7 +84,21 @@ export default new Router({
         },
         {
           path: "member",
-          component: Member
+          component: Member,
+          children: [
+            {
+              path: "vipDescription",
+              component: VipDescription
+            },
+            {
+              path: "exchangeVip",
+              component: ExchangeVip
+            },
+            {
+              path: "purchaseRecords",
+              component: PurchaseRecords
+            }
+          ]
         }
       ]
     },
