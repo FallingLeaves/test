@@ -599,3 +599,65 @@ export const serverCenter = () => {
     )
   })
 }
+/**
+ * 兑换会员卡
+ * @param {*用户id} user_id
+ * @param {*卡号} num
+ * @param {*密码} passward
+ */
+export const vipCard = (user_id, num, passward) => {
+  let url = `http://cangdu.org:8001/member/v1/users/${user_id}/delivery_card/physical_card/bind`
+  return new Promise((resolve, reject) => {
+    Vue.http
+      .post(url, {
+        number: num,
+        passward: passward
+      })
+      .then(
+        res => {
+          resolve(res)
+        },
+        err => {
+          reject(err)
+        }
+      )
+  })
+}
+/**
+ * 获取可用红包
+ * @param {*用户id} user_id
+ * @param {*限制} limit
+ * @param {*跳过} offset
+ */
+export const getHongBao = (user_id, limit = 20, offset = 0) => {
+  let url = `http://cangdu.org:8001/promotion/v2/users/${user_id}/hongbaos?limit=${limit}&offset=${offset}`
+  return new Promise((resolve, reject) => {
+    Vue.http.get(url).then(
+      res => {
+        resolve(res)
+      },
+      err => {
+        reject(err)
+      }
+    )
+  })
+}
+/**
+ * 获取过期红包
+ * @param {*用户id} user_id
+ * @param {*限制} limit
+ * @param {*跳过} offset
+ */
+export const getExpired = (user_id, limit = 20, offset = 0) => {
+  let url = `http://cangdu.org:8001/promotion/v2/users/${user_id}/expired_hongbaos?limit=${limit}&offset=${offset}`
+  return new Promise((resolve, reject) => {
+    Vue.http.get(url).then(
+      res => {
+        resolve(res)
+      },
+      err => {
+        reject(err)
+      }
+    )
+  })
+}

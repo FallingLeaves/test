@@ -24,7 +24,7 @@
           <span class="info-data-num"><b>{{count}}</b>个</span>
           <span class="info-data-item">我的优惠</span>
         </router-link>
-        <router-link to="/balance" tag="li" class="info-data-link">
+        <router-link to="/points" tag="li" class="info-data-link">
           <span class="info-data-num"><b>{{integral}}</b>分</span>
           <span class="info-data-item">我的积分</span>
         </router-link>
@@ -69,7 +69,7 @@ export default {
         {
           icon: "src/assets/img/order04.svg",
           item: "我的订单",
-          linkTo: "/myOrder"
+          linkTo: "/order"
         },
         {
           icon: "src/assets/img/integral.svg",

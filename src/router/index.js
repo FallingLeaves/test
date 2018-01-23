@@ -20,6 +20,9 @@ import QuestionDetail from "@/components/profile/children/children/questionDetai
 import VipDescription from "@/components/profile/children/children/vipDescription"
 import ExchangeVip from "@/components/profile/children/children/exchangeVip"
 import PurchaseRecords from "@/components/profile/children/children/purchaseRecords"
+import Balance from "@/components/balance/balance"
+import Coupon from "@/components/coupon/coupon"
+import Points from "@/components/points/points"
 
 Vue.use(Router)
 
@@ -121,6 +124,18 @@ export default new Router({
           ]
         }
       ]
+    },
+    {
+      path: "/balance",
+      component: Balance
+    },
+    {
+      path: "/coupon",
+      component: Coupon
+    },
+    {
+      path: "/points",
+      component: Points
     }
   ]
 })
