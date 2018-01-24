@@ -77,6 +77,9 @@ export default {
       padding: .15rem 0;
       .sc(.16rem, #666);
       text-align: center;
+      >span {
+        border-bottom: 3px solid #fff;
+      }
       >span.active {
         color: @blue;
         border-bottom: 3px solid @blue;

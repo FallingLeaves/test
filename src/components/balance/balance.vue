@@ -51,6 +51,7 @@ export default {
   > section {
     background-color: #fff;
     .border-radius(.1rem);
+    padding: .1rem 0;
     header {
       .flex();
       padding: .1rem .2rem;
@@ -68,6 +69,9 @@ export default {
       }
     }
     > p {
+      .flex(flex-start);
+      align-items: center;
+      padding: .1rem .2rem;
       span:nth-of-type(1) {
         .sc(.2rem, #333);
       }
@@ -76,12 +80,12 @@ export default {
       }
     }
     > div {
-      .wh(100%, .3rem);
+      .sc(.16rem, #333);
       line-height: .3rem;
       text-align: center;
       .border-radius(.1rem);
       background-color: #ccc;
-      margin-top: .1rem;
+      margin: .1rem .2rem;
     }
   }
   .log {
