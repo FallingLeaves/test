@@ -1,6 +1,8 @@
 import Vue from "vue"
 import Router from "vue-router"
-import Home from "@/components/home/home"
+// import Home from "@/components/home/home"
+const Home = r =>
+  require.ensure([], () => require("../components/home/home.vue"), "group-home")
 import Login from "@/components/login/login"
 import City from "@/components/city/city"
 import Site from "@/components/site/site"
@@ -22,6 +24,7 @@ import ExchangeVip from "@/components/profile/children/children/exchangeVip"
 import PurchaseRecords from "@/components/profile/children/children/purchaseRecords"
 import Balance from "@/components/balance/balance"
 import Coupon from "@/components/coupon/coupon"
+import CouponDetail from "@/components/coupon/children/detail"
 import Points from "@/components/points/points"
 
 Vue.use(Router)
@@ -131,7 +134,13 @@ export default new Router({
     },
     {
       path: "/coupon",
-      component: Coupon
+      component: Coupon,
+      children: [
+        {
+          path: "detail",
+          component: CouponDetail
+        }
+      ]
     },
     {
       path: "/points",

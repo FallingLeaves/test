@@ -25,6 +25,9 @@
 
       </section>
     </transition>
+    <transition name="router-slid" mode="out-in">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -127,6 +130,15 @@ export default {
   }
   .router-fade-enter,
   .router-fade-leave-active {
+    opacity: 0;
+  }
+  .router-slid-enter-active,
+  .router-slid-leave-active {
+    transition: all 0.4s;
+  }
+  .router-slid-enter,
+  .router-slid-leave-active {
+    transform: translateX(100%);
     opacity: 0;
   }
 }
