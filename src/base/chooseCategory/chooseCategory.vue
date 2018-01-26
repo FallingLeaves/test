@@ -8,7 +8,7 @@
       <section class="shop-sort" v-if="shopCategory" ref="shopSort" :class="{show:sort[0].checked}">
         <div class="food-sort">
           <ul>
-            <li v-for="(foodSort, index) in shopCategory" :class="{choose : index == currentIndex}" @click="select(index)">
+            <li v-for="(foodSort, index) in shopCategory" :class="{choose : index == currentIndex}" @click="select(index)" :key="index">
               <div>
                 <img :src="foodSort.image_url" alt="">
                 <span>{{foodSort.name}}</span>
@@ -86,12 +86,20 @@ export default {
       order_by: 4,
       FOOD_IMG_BASE_URL,
       order: [
-        { title: "智能排序", img_url: "src/assets/img/order.png", order_by: 4 },
-        { title: "距离最近", img_url: "src/assets/img/address.png", order_by: 5 },
-        { title: "销量最高", img_url: "src/assets/img/fire.png", order_by: 6 },
-        { title: "起送价最低", img_url: "src/assets/img/rmb.png", order_by: 1 },
-        { title: "配送速度最快", img_url: "src/assets/img/time.png", order_by: 2 },
-        { title: "评分最高", img_url: "src/assets/img/star.png", order_by: 3 }
+        { title: "智能排序", img_url: "static/img/order.png", order_by: 4 },
+        {
+          title: "距离最近",
+          img_url: "static/img/address.png",
+          order_by: 5
+        },
+        { title: "销量最高", img_url: "static/img/fire.png", order_by: 6 },
+        { title: "起送价最低", img_url: "static/img/rmb.png", order_by: 1 },
+        {
+          title: "配送速度最快",
+          img_url: "static/img/time.png",
+          order_by: 2
+        },
+        { title: "评分最高", img_url: "static/img/star.png", order_by: 3 }
       ],
       delivery_mode: [],
       shop_atteibute: [],
@@ -210,7 +218,7 @@ export default {
       let num = 0
       this.choose_attr.forEach(v => {
         if (v.checked) {
-          num+=1
+          num += 1
         }
       })
       this.num = num
@@ -248,9 +256,7 @@ export default {
   components: {
     Scroll
   },
-  watch: {
-    
-  }
+  watch: {}
 }
 </script>
 
@@ -403,7 +409,7 @@ export default {
       }
     }
     .checked {
-      .wh(.2rem, .2rem);
+      .wh(0.2rem, 0.2rem);
       margin-right: 0.05rem;
       .flex(center);
       align-items: center;

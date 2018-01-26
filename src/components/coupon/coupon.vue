@@ -14,7 +14,7 @@
         <header>
           <div>有<span>{{hongBaoList.length}}</span>个红包即将到期</div>
           <router-link to="/coupon/detail" class="enterDetail">
-            <img src="src/assets/img/description.png" alt="">
+            <img src="../../assets/img/description.png" alt="">
             <span>红包说明</span>
           </router-link>
         </header>

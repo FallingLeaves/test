@@ -2,7 +2,7 @@
   <div>
     <my-header :title="title" :isSearch="isSearch" :isBack="isBack" :isLogin="isLogin"></my-header>
     <section>
-      <img src="src/assets/img/no-log.png" alt="">
+      <img src="../../../../assets/img/no-log.png" alt="">
       <p>无购买记录</p>
     </section>
   </div>
@@ -11,12 +11,12 @@
 <script>
 import myHeader from "@/components/header/header"
 export default {
-  data () {
+  data() {
     return {
       title: "购买记录",
       isSearch: false,
       isBack: true,
-      isLogin: false,
+      isLogin: false
     }
   },
   components: {
@@ -28,15 +28,15 @@ export default {
 <style lang="less" scoped>
 @import "../../../../style/mixin.less";
 section {
-  padding: .1rem .2rem;
+  padding: 0.1rem 0.2rem;
   .flex();
   flex-direction: column;
   align-items: center;
   img {
-    .wh(.6rem, .34rem);
+    .wh(0.6rem, 0.34rem);
   }
   p {
-    .sc(.16rem, #999);
+    .sc(0.16rem, #999);
   }
 }
 </style>

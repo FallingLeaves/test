@@ -52,13 +52,13 @@ export default {
       isLogin: false,
       franchise: [
         {
-          icon: "src/assets/img/sheng.jpeg",
+          icon: "static/img/sheng.jpeg",
           title: "减免配送费",
           subTitle: "每月减免30单，每日可减免3单，每单最高减4元",
           delivery: "蜂鸟专送专享"
         },
         {
-          icon: "src/assets/img/jifen.jpeg",
+          icon: "static/img/jifen.jpeg",
           title: "减免配送费",
           subTitle: "每月减免30单，每日可减免3单，每单最高减4元",
           delivery: "蜂鸟专送专享"

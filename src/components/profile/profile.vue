@@ -4,12 +4,12 @@
     <section class="user">
       <div class="avatar">
         <img :src="SHOP_IMG_BASE_PATH+userInfo.avatar" alt="" v-if="userInfo&&userInfo.user_id">
-        <img src="src/assets/img/user.svg" alt="" v-else>
+        <img src="../../assets/img/user.svg" alt="" v-else>
       </div>
       <div class="user-info" @click="enterProfile">
         <p class="name">{{userName}}</p>
         <p class="mobile">
-          <img src="src/assets/img/mobile.svg" alt="">
+          <img src="../../assets/img/mobile.svg" alt="">
           <span>{{mobile}}</span>
         </p>
       </div>
@@ -67,27 +67,27 @@ export default {
       integral: 0, //积分
       userItem: [
         {
-          icon: "src/assets/img/order04.svg",
+          icon: "static/img/order04.svg",
           item: "我的订单",
           linkTo: "/order"
         },
         {
-          icon: "src/assets/img/integral.svg",
+          icon: "static/img/integral.svg",
           item: "积分商城",
           linkTo: "/shoppingMall"
         },
         {
-          icon: "src/assets/img/member.svg",
+          icon: "static/img/member.svg",
           item: "饿了么会员卡",
           linkTo: "/profile/member"
         },
         {
-          icon: "src/assets/img/server.svg",
+          icon: "static/img/server.svg",
           item: "服务中心",
           linkTo: "/profile/server"
         },
         {
-          icon: "src/assets/img/download.svg",
+          icon: "static/img/download.svg",
           item: "下载饿了么APP",
           linkTo: "/dowmload"
         }

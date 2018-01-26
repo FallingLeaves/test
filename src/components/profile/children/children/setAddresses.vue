@@ -8,7 +8,7 @@
             <p>{{address.address}}</p>
             <p>{{address.phone}}</p>
           </div>
-          <img src="src/assets/img/delete.svg" alt="">
+          <img src="../../../../assets/img/delete.svg" alt="">
         </li>
       </ul>
     </section>
@@ -70,15 +70,15 @@ export default {
         .flex();
         align-items: center;
         background-color: #fff;
-        padding: .1rem;
+        padding: 0.1rem;
         div {
           flex: 1;
           p {
-            .sc(.14rem, #333)
+            .sc(0.14rem, #333);
           }
         }
         img {
-          .wh(.3rem, .3rem);
+          .wh(0.3rem, 0.3rem);
         }
       }
     }

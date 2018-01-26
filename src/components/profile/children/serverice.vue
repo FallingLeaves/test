@@ -3,11 +3,11 @@
     <my-header :title="title" :isSearch="isSearch" :isBack="isBack" :isLogin="isLogin"></my-header>
     <nav>
       <div>
-        <img src="src/assets/img/call.svg" alt="">
+        <img src="../../../assets/img/call.svg" alt="">
         <div>在线客服</div>
       </div>
       <div>
-        <img src="src/assets/img/tel.svg" alt="">
+        <img src="../../../assets/img/tel.svg" alt="">
         <div>在线客服</div>
       </div>
     </nav>
@@ -80,7 +80,7 @@ export default {
     },
     questionDetail(item) {
       this.saveQuestions(item)
-      this.$router.push({path: "/profile/server/questionDetail"})
+      this.$router.push({ path: "/profile/server/questionDetail" })
     },
     ...mapMutations({
       saveQuestions: "SAVE_QUESTIONS"

@@ -9,8 +9,8 @@
               <h5>食品监督安全公示</h5>
             </header>
             <section>
-              <img src="src/assets/img/cry.svg" alt="" v-if="shopDetail.status==0">
-              <img src="src/assets/img/laugh.svg" alt="" v-else>
+              <img src="../../../../assets/img/cry.svg" alt="" v-if="shopDetail.status==0">
+              <img src="../../../../assets/img/laugh.svg" alt="" v-else>
               <div>
                 <div>监督检查结果：<span v-if="shopDetail.status==0" style="color:red">差</span><span v-else style="color: green">优</span></div>
                 <div>检查日期：{{shopDetail.identification.licenses_date}}</div>
@@ -206,9 +206,9 @@ export default {
       }
     }
   }
-  >div {
+  > div {
     .flex();
-    padding: .2rem;
+    padding: 0.2rem;
     img {
       .wh(40%, 100%);
     }

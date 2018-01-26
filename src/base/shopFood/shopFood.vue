@@ -32,7 +32,7 @@
                     <div>{{food.name}}</div>
                     <div v-if="food.attributes.length&&food.attributes[0].icon_name=='招牌'" :style="{color: `#${food.attributes[0].icon_color}`, border: `1px solid #${food.attributes[0].icon_color}`}">{{food.attributes[0].icon_name}}</div>
                   </header>
-                  <div>{{food.description}}</div>
+                  <div class="desc">{{food.description}}</div>
                   <div>
                     月售{{food.month_sales}}份  好评率{{food.satisfy_rate}}%
                   </div>
@@ -44,7 +44,6 @@
                       <span>￥</span><span>{{food.specfoods[0].price}}</span>
                     </div>
                     <div v-if="!food.specifications.length">
-                      <!-- <img src="src/assets/img/add.svg" alt=""> -->
                       <buy :restaurant_id="food.restaurant_id" 
                            :food_id="food.specfoods[0].food_id"
                            :food_name="food.specfoods[0].name"
@@ -72,7 +71,7 @@
         <div>
           <header>
             {{specfood.name}}
-            <img src="src/assets/img/close.svg" alt="" @click="close">
+            <img src="../../assets/img/close.svg" alt="" @click="close">
           </header>
           <div class="info">
             <p>规格</p>
@@ -107,8 +106,8 @@
     <footer class="buycart">
       <div>
         <div class="img" @click="showBuycart">
-          <img src="src/assets/img/nobuy.svg" alt="" v-if="!buycart.length">
-          <img src="src/assets/img/isbuy.svg" alt="" v-if="buycart.length">
+          <img src="../../assets/img/nobuy.svg" alt="" v-if="!buycart.length">
+          <img src="../../assets/img/isbuy.svg" alt="" v-if="buycart.length">
         </div>
         <p>¥{{total.toFixed(2)}}</p>
         <div>配送费¥{{float_delivery_fee}}</div>
@@ -123,14 +122,14 @@
             购物车
           </div>
           <div @click="clear">
-            <img src="src/assets/img/delete.svg" alt="">
+            <img src="../../assets/img/delete.svg" alt="">
             <span>清空</span>
           </div>
         </header>
         <scroll class="cart-scroll" :data="buycart">
           <div>
             <ul>
-              <li v-for="item in buycart">
+              <li v-for="(item, index) in buycart" :key="index">
                 <div class="food-info">
                   <p>{{item.food_name}}</p>
                   <div>规格：{{item.specs}}</div>
@@ -201,12 +200,6 @@ export default {
     this.getFoodList()
     this.getFee()
   },
-  mounted() {
-    
-  },
-  beforeDestroy() {
-    
-  },
   methods: {
     getFee() {
       this.min_packing_fee = parseInt(this.$route.query.min_packing_fee)
@@ -249,7 +242,7 @@ export default {
       let listHeight = []
       let height = 0
       let children = this.$refs.foodList
-      if(!children) {
+      if (!children) {
         return
       }
       listHeight.push(height)
@@ -384,7 +377,9 @@ export default {
         padding: 0.2rem 0;
         text-align: center;
         border-bottom: 1px solid #e4e4e4;
+        border-left: 4px solid #f5f5f5;
         position: relative;
+        width: 1rem;
         > span {
           position: absolute;
           top: 0;
@@ -432,6 +427,9 @@ export default {
             flex: 1;
             header {
               .flex();
+              .desc {
+                .ellipsis();
+              }
               div:nth-of-type(1) {
                 .sc(0.16rem,#000);
                 font-weight: 700;
@@ -697,7 +695,7 @@ footer.buycart {
   top: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, .3);
+  background-color: rgba(0, 0, 0, 0.3);
   z-index: 3;
 }
 </style>

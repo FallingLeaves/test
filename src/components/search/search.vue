@@ -15,7 +15,7 @@
       <ul>
         <li v-for="(item, index) in history" :key="index">
           <div @click="choose(item)">{{item}}</div>
-          <img src="src/assets/img/delete.svg" alt="" @click="del(index)">
+          <img src="../../assets/img/delete.svg" alt="" @click="del(index)">
         </li>
         <li @click="clear">清空搜索历史</li>
       </ul>

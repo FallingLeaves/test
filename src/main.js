@@ -13,8 +13,8 @@ Vue.use(VueResource)
 // Vue.use(VueLazyload)
 Vue.use(VueLazyload, {
   preLoad: 1.3,
-  error: "src/assets/img/404.png",
-  loading: "src/assets/img/loading.svg",
+  error: "static/img/404.png",
+  loading: "static/img/loading.svg",
   attempt: 1
 })
 Vue.use(VueCookie)

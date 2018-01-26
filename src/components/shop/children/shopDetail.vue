@@ -20,8 +20,8 @@
             </header>
           </router-link>
           <section>
-            <img src="src/assets/img/cry.svg" alt="" v-if="shopDetail.status==0">
-            <img src="src/assets/img/laugh.svg" alt="" v-if="shopDetail.status==1">
+            <img src="../../../assets/img/cry.svg" alt="" v-if="shopDetail.status==0">
+            <img src="../../../assets/img/laugh.svg" alt="" v-if="shopDetail.status==1">
             <div>
               <div>监督检查结果：<span v-if="shopDetail.status==0" style="color:red">差</span><span v-if="shopDetail.status==1" style="color: green">优</span></div>
               <div>检查日期：{{shopDetail.identification.licenses_date}}</div>
@@ -66,11 +66,13 @@ export default {
   },
   methods: {
     test() {
-      if(!this.shopDetail) {
+      if (!this.shopDetail) {
         this.$router.go(-1)
         return
       }
-      this.actAndAttr = this.shopDetail.activities.concat(this.shopDetail.supports)
+      this.actAndAttr = this.shopDetail.activities.concat(
+        this.shopDetail.supports
+      )
     }
   },
   components: {
@@ -97,9 +99,9 @@ export default {
   }
   .actAndAttr {
     background-color: #fff;
-    margin-bottom: .1rem;
+    margin-bottom: 0.1rem;
     h5 {
-      padding: .1rem;
+      padding: 0.1rem;
       .sc(0.18rem, #000);
       border-bottom: 1px solid rgb(235, 235, 235);
     }
@@ -107,23 +109,23 @@ export default {
       li {
         .flex(flex-start);
         align-items: center;
-        .sc(.14rem, #333);
-        padding: .1rem;
+        .sc(0.14rem, #333);
+        padding: 0.1rem;
         .item {
           color: #fff;
           padding: 1px 3px;
           .border-radius(5px);
-          margin-right: .1rem;
+          margin-right: 0.1rem;
         }
       }
     }
   }
   .food-safety {
     background-color: #fff;
-    margin-bottom: .1rem;
+    margin-bottom: 0.1rem;
     header {
       .flex();
-      padding: .1rem;
+      padding: 0.1rem;
       border-bottom: 1px solid rgb(235, 235, 235);
       h5 {
         .sc(0.18rem, #000);
@@ -146,15 +148,15 @@ export default {
     }
     section {
       .flex(flex-start);
-      padding: .1rem;
+      padding: 0.1rem;
       img {
-        .wh(.4rem, .4rem);
-        margin-right: .1rem;
+        .wh(0.4rem, 0.4rem);
+        margin-right: 0.1rem;
       }
       > div {
-        .sc(.14rem, #333);
+        .sc(0.14rem, #333);
         div {
-          padding: .05rem 0;
+          padding: 0.05rem 0;
         }
       }
     }
@@ -162,14 +164,14 @@ export default {
   .shop-info {
     background-color: #fff;
     h5 {
-      padding: .1rem;
+      padding: 0.1rem;
       .sc(0.18rem, #000);
       border-bottom: 1px solid rgb(235, 235, 235);
     }
     ul {
       li {
-        .sc(.14rem, #999);
-        padding: .15rem .1rem;
+        .sc(0.14rem, #999);
+        padding: 0.15rem 0.1rem;
         border-bottom: 1px solid rgb(235, 235, 235);
       }
       .arrow {
@@ -180,7 +182,7 @@ export default {
           .wh(10px, 10px);
           border-right: 1px solid #999;
           border-bottom: 1px solid #999;
-          right: .1rem;
+          right: 0.1rem;
           top: 50%;
           transform: translate(-50%) rotate(-45deg);
         }

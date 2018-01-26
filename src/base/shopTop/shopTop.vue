@@ -48,7 +48,7 @@
             <div>{{shopInfo.promotion_info}}</div>
           </div>
         </nav>
-        <img src="src/assets/img/close.svg" alt="" @click="close">
+        <img src="../../assets/img/close.svg" alt="" @click="close">
       </section>
     </header>
   </div>
@@ -57,7 +57,7 @@
 <script>
 import { shop } from "@/config/getData"
 import { SHOP_IMG_BASE_PATH } from "@/config/env"
-import { mapMutations } from 'vuex'
+import { mapMutations } from "vuex"
 export default {
   props: {
     id: {
@@ -97,7 +97,7 @@ export default {
       this.showActivities = false
     },
     enterShopDetail() {
-      this.$router.push({path: `/shop/${this.id}/detail`})
+      this.$router.push({ path: `/shop/${this.id}/detail` })
     },
     ...mapMutations({
       setShopDetail: "SET_SHOPDETAIL"
@@ -204,24 +204,24 @@ header {
     left: 0;
     right: 0;
     background-color: #262626;
-    padding: .3rem;
+    padding: 0.3rem;
     z-index: 100;
     > header {
-      .sc(.18rem);
+      .sc(0.18rem);
       text-align: center;
     }
     > nav {
       text-align: center;
       > header {
         display: inline;
-        .sc(.16rem);
+        .sc(0.16rem);
         padding: 5px;
         text-align: center;
-        .border-radius(10PX);
+        .border-radius(10px);
         border: 1px solid #ccc;
       }
       > div {
-        .sc(.12rem);
+        .sc(0.12rem);
         padding: 5px 0;
         .flex(flex-start);
         align-items: center;
@@ -233,7 +233,7 @@ header {
       }
     }
     > img {
-      .wh(.5rem, .5rem);
+      .wh(0.5rem, 0.5rem);
       position: absolute;
       left: 50%;
       transform: translateX(-50%);

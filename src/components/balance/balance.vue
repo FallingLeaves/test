@@ -5,7 +5,7 @@
       <header>
         <div>当前余额</div>
         <router-link to="/balance/detail" class="enterDetail">
-          <img src="src/assets/img/description.png" alt="">
+          <img src="../../assets/img/description.png" alt="">
           <span>余额说明</span>
         </router-link>
       </header>
@@ -17,7 +17,7 @@
     </section>
     <p class="log">交易明细</p>
     <div class="no-log">
-      <img src="src/assets/img/no-log.png" alt="">
+      <img src="../../assets/img/no-log.png" alt="">
       <div>暂无明细记录</div>
     </div>
     <transition name="router-slid" mode="out-in">
@@ -29,13 +29,13 @@
 <script>
 import myHeader from "@/components/header/header"
 export default {
-  data () {
+  data() {
     return {
       isBack: true,
       isSearch: false,
       isLogin: false,
       title: "我的余额",
-      count: 0.00
+      count: 0.0
     }
   },
   components: {
@@ -50,18 +50,18 @@ export default {
   padding-top: 0.46rem;
   > section {
     background-color: #fff;
-    .border-radius(.1rem);
-    padding: .1rem 0;
+    .border-radius(0.1rem);
+    padding: 0.1rem 0;
     header {
       .flex();
-      padding: .1rem .2rem;
-      .sc(.16rem, #ccc);
+      padding: 0.1rem 0.2rem;
+      .sc(0.16rem, #ccc);
       .enterDetail {
         .flex();
         align-items: center;
         img {
           .wh(24px, 24px);
-          margin-right: .1rem;
+          margin-right: 0.1rem;
         }
         span {
           color: @blue;
@@ -71,37 +71,37 @@ export default {
     > p {
       .flex(flex-start);
       align-items: center;
-      padding: .1rem .2rem;
+      padding: 0.1rem 0.2rem;
       span:nth-of-type(1) {
-        .sc(.2rem, #333);
+        .sc(0.2rem, #333);
       }
       span:nth-of-type(2) {
-        .sc(.14rem, #333);
+        .sc(0.14rem, #333);
       }
     }
     > div {
-      .sc(.16rem, #333);
-      line-height: .3rem;
+      .sc(0.16rem, #333);
+      line-height: 0.3rem;
       text-align: center;
-      .border-radius(.1rem);
+      .border-radius(0.1rem);
       background-color: #ccc;
-      margin: .1rem .2rem;
+      margin: 0.1rem 0.2rem;
     }
   }
   .log {
-    padding: .1rem .2rem;
-    .sc(.14rem, #999);
+    padding: 0.1rem 0.2rem;
+    .sc(0.14rem, #999);
   }
   .no-log {
     .flex();
     flex-direction: column;
     align-items: center;
     img {
-      .wh(.6rem, .34rem);
+      .wh(0.6rem, 0.34rem);
     }
     div {
-      margin-top: .1rem;
-      .sc(.16rem, #666);
+      margin-top: 0.1rem;
+      .sc(0.16rem, #666);
     }
   }
   .router-slid-enter-active,

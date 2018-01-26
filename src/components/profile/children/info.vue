@@ -8,7 +8,7 @@
           <div class="info-iten-name">头像</div>
           <div class="avatar">
             <img :src="SHOP_IMG_BASE_PATH+userInfo.avatar" alt="" v-if="userInfo.avatar">
-            <img src="src/assets/img/user.svg" alt="" v-else>
+            <img src="../../../assets/img/user.svg" alt="" v-else>
           </div>
         </li>
         <li class="info-item" @click="setUsername">
@@ -23,7 +23,7 @@
     <p>账号绑定</p>
     <div class="info-item">
       <div class="info-iten-name">
-        <img src="src/assets/img/mobile.svg" alt="">
+        <img src="../../../assets/img/mobile.svg" alt="">
         <div>手机</div>
       </div>
       <div class="user-name">{{userInfo.mobile}}</div>
@@ -95,7 +95,7 @@ export default {
       this.$router.push({ path: "/profile/info/setAddresses" })
     },
     ...mapMutations({
-      resetAvatar:"RESET_AVATAR"
+      resetAvatar: "RESET_AVATAR"
     })
   },
   components: {
