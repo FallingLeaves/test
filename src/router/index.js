@@ -121,10 +121,34 @@ const PurchaseRecords = r =>
       require("../components/profile/children/children/purchaseRecords.vue"),
     "group-profile"
   )
-import Balance from "@/components/balance/balance"
-import Coupon from "@/components/coupon/coupon"
-import CouponDetail from "@/components/coupon/children/detail"
-import Points from "@/components/points/points"
+// import Balance from "@/components/balance/balance"
+const Balance = r =>
+  require.ensure(
+    [],
+    () => require("../components/balance/balance.vue"),
+    "group-balance"
+  )
+// import Coupon from "@/components/coupon/coupon"
+const Coupon = r =>
+  require.ensure(
+    [],
+    () => require("../components/coupon/coupon.vue"),
+    "group-coupon"
+  )
+// import CouponDetail from "@/components/coupon/children/detail"
+const CouponDetail = r =>
+  require.ensure(
+    [],
+    () => require("../components/coupon/children/detail.vue"),
+    "group-coupon"
+  )
+// import Points from "@/components/points/points"
+const Points = r =>
+  require.ensure(
+    [],
+    () => require("../components/points/points.vue"),
+    "group-points"
+  )
 
 Vue.use(Router)
 
