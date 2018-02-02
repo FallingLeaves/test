@@ -16,7 +16,7 @@
           <header>
             <slider v-if="foodSort.length">
               <div>
-                <div v-for="(item, index) in foodSort.slice(0, 8)" :key="item.id" class="item">
+                <div v-for="item in foodSort.slice(0, 8)" :key="item.id" class="item">
                   <router-link :to="'/food/'+item.title+'/'+item.id">
                     <!-- <img :src="item.image_url" class="needsclick" @load="loadImage"> -->
                     <img v-lazy="item.image_url" class="needsclick" @load="loadImage">
@@ -25,7 +25,7 @@
                 </div>
               </div>
               <div>
-                <div v-for="(item, index) in foodSort.slice(8)" :key="item.id" class="item">
+                <div v-for="item in foodSort.slice(8)" :key="item.id" class="item">
                   <router-link :to="'/food/'+item.title+'/'+item.id">
                     <img v-lazy="item.image_url" class="needsclick" @load="loadImage">
                     <span>{{item.title}}</span>
@@ -49,15 +49,15 @@
 </template>
 
 <script>
-import { mySite, foodSort } from "@/config/getData"
-import { FOOD_IMG_BASE_URL } from "@/config/env"
-import myHeader from "@/components/header/header"
-import TabBar from "@/components/tabBar/tabBar"
-import Slider from "@/base/slider/slider"
-import Scroll from "@/base/scroll/scroll"
-import ShopList from "@/base/shopList/shopList"
-import { mapMutations, mapGetters } from "vuex"
-import { setStore, getStore, removeStore } from "@/config/mUtil"
+import { mySite, foodSort } from "@/config/getData";
+import { FOOD_IMG_BASE_URL } from "@/config/env";
+import myHeader from "@/components/header/header";
+import TabBar from "@/components/tabBar/tabBar";
+import Slider from "@/base/slider/slider";
+import Scroll from "@/base/scroll/scroll";
+import ShopList from "@/base/shopList/shopList";
+import { mapMutations, mapGetters } from "vuex";
+import { setStore, getStore, removeStore } from "@/config/mUtil";
 export default {
   data() {
     return {
@@ -72,59 +72,57 @@ export default {
       limit: 20,
       pullup: true,
       reloaded: false
-    }
+    };
   },
   computed: {
     ...mapGetters(["shopList"])
   },
   created() {
-    this._mySite()
-    this._footSort()
-    this.getLoc()
+    this._mySite();
+    this._footSort();
+    this.getLoc();
   },
-  mounted() {
-    
-  },
+  mounted() {},
   methods: {
     _mySite() {
       mySite(this.$route.query.geohash).then(
         res => {
-          this.site = res.body
+          this.site = res.body;
         },
         err => {
-          console.log(err)
+          console.log(err);
         }
-      )
+      );
     },
     _footSort() {
       foodSort().then(
         res => {
           res.body.forEach(item => {
-            item.image_url = this.FOOD_IMG_BASE_URL + item.image_url
-          })
-          this.foodSort = res.body
+            item.image_url = this.FOOD_IMG_BASE_URL + item.image_url;
+          });
+          this.foodSort = res.body;
         },
         err => {
-          console.log(err)
+          console.log(err);
         }
-      )
+      );
     },
     getLoc() {
-      this.latitude = this.$route.query.geohash.split(",")[0]
-      this.longitude = this.$route.query.geohash.split(",")[1]
-      this.setLatidute(this.latitude)
-      this.setLongitude(this.longitude)
-      this.setGeohash()
-      setStore("latitude", this.latitude)
-      setStore("longitude", this.longitude)
-      setStore("geohash", this.$route.query.geohash)
+      this.latitude = this.$route.query.geohash.split(",")[0];
+      this.longitude = this.$route.query.geohash.split(",")[1];
+      this.setLatidute(this.latitude);
+      this.setLongitude(this.longitude);
+      this.setGeohash();
+      setStore("latitude", this.latitude);
+      setStore("longitude", this.longitude);
+      setStore("geohash", this.$route.query.geohash);
     },
     loadImage() {
-      this.$refs.scroll && this.$refs.scroll.refresh()
+      this.$refs.scroll && this.$refs.scroll.refresh();
     },
     onScrollToEnd() {
       if (this.shopList.length == this.limit) {
-        this.limit += 20
+        this.limit += 20;
       }
     },
     ...mapMutations({
@@ -141,7 +139,7 @@ export default {
     TabBar,
     ShopList
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

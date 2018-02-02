@@ -11,46 +11,50 @@
     </nav>
     <transition name="router-fade">
       <section v-if="categoryType==0" class="hongBaoList">
-        <header>
-          <div>有<span>{{hongBaoList.length}}</span>个红包即将到期</div>
-          <router-link to="/coupon/detail" class="enterDetail">
-            <img src="../../assets/img/description.png" alt="">
-            <span>红包说明</span>
-          </router-link>
-        </header>
-        <ul>
-          <li v-for="(item, index) in hongBaoList" :key="index">
-            <section>
-              <div class="num">
-                <div>
-                  <span>¥</span>
-                  <span>{{String(item.amount).split(".")[0]}}</span>
-                  <span>.</span>
-                  <span>{{String(item.amount).split(".")[1] || 0}}</span>
-                </div>
-                <p>{{item.description_map.sum_condition}}</p>
-              </div>
-              <div class="info">
-                <p>{{item.name}}</p>
-                <div>{{item.description_map.validity_periods}}</div>
-                <div>{{item.description_map.phone}}</div>
-              </div>
-              <div class="last-day">
-                {{item.description_map.validity_delta}}
-              </div>
-            </section>
-            <footer v-if="item.limit_map">
-              {{item.limit_map.restaurant_flavor_ids}}
-            </footer>
-          </li>
-        </ul>
-        <div class="history-hongbao">
-          <div>查看历史红包</div><span></span>
-        </div>
-        <div class="foot">
-          <div>兑换红包</div>
-          <div>推荐有奖</div>
-        </div>
+        <scroll :data="hongBaoList" class="coupon-scroll">
+          <div>
+            <header>
+              <div>有<span>{{hongBaoList.length}}</span>个红包即将到期</div>
+              <router-link to="/coupon/detail" class="enterDetail">
+                <img src="../../assets/img/description.png" alt="">
+                <span>红包说明</span>
+              </router-link>
+            </header>
+            <ul>
+              <li v-for="(item, index) in hongBaoList" :key="index">
+                <section>
+                  <div class="num">
+                    <div>
+                      <span>¥</span>
+                      <span>{{String(item.amount).split(".")[0]}}</span>
+                      <span>.</span>
+                      <span>{{String(item.amount).split(".")[1] || 0}}</span>
+                    </div>
+                    <p>{{item.description_map.sum_condition}}</p>
+                  </div>
+                  <div class="info">
+                    <p>{{item.name}}</p>
+                    <div>{{item.description_map.validity_periods}}</div>
+                    <div>{{item.description_map.phone}}</div>
+                  </div>
+                  <div class="last-day">
+                    {{item.description_map.validity_delta}}
+                  </div>
+                </section>
+                <footer v-if="item.limit_map">
+                  {{item.limit_map.restaurant_flavor_ids}}
+                </footer>
+              </li>
+            </ul>
+            <div class="history-hongbao" @click="lookhb">
+              <div>查看历史红包</div><span></span>
+            </div>
+          </div>
+          <div class="foot">
+            <div>兑换红包</div>
+            <div>推荐有奖</div>
+          </div>
+        </scroll>
       </section>
     </transition>
     <transition name="router-fade">
@@ -59,15 +63,16 @@
       </section>
     </transition>
     <transition name="router-slid" mode="out-in">
-      <router-view></router-view>
+      <router-view class="coupon-next"></router-view>
     </transition>
   </div>
 </template>
 
 <script>
-import myHeader from "@/components/header/header"
-import { getHongBao } from "@/config/getData"
-import { mapGetters } from "vuex"
+import myHeader from "@/components/header/header";
+import Scroll from "@/base/scroll/scroll";
+import { getHongBao } from "@/config/getData";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -79,43 +84,49 @@ export default {
       hongBaoList: [],
       limit: 20,
       offset: 0
-    }
+    };
   },
   computed: {
     ...mapGetters(["userInfo"])
   },
   created() {
-    this._getHongBao()
+    this._getHongBao();
   },
   methods: {
     _getHongBao() {
       if (this.userInfo) {
         getHongBao(this.userInfo.user_id, this.limit, this.offset).then(
           res => {
-            this.hongBaoList = res.body
+            this.hongBaoList = res.body;
           },
           err => {
-            console.log(err)
+            console.log(err);
           }
-        )
+        );
       }
+    },
+    lookhb() {
+      this.$router.push({ path: "/coupon/historyhb" });
     }
   },
   components: {
-    myHeader
+    myHeader,
+    Scroll
   },
   watch: {
     userInfo() {
-      this._getHongBao()
+      this._getHongBao();
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
 @import "../../style/mixin.less";
 .coupon-view {
   padding-top: 0.46rem;
+  .flex();
+  flex-direction: column;
   .category-title {
     .flex();
     background-color: #fff;
@@ -135,7 +146,14 @@ export default {
     }
   }
   .hongBaoList {
-    > header {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    .coupon-scroll {
+      height: 100%;
+      overflow: hidden;
+    }
+    header {
       .flex();
       align-items: center;
       padding: 0.1rem;
@@ -147,7 +165,7 @@ export default {
         .flex();
         align-items: center;
         img {
-          .wh(20px, 20px);
+          .wh(15px, 15px);
           margin-right: 0.1rem;
         }
         span {
@@ -229,7 +247,7 @@ export default {
       }
     }
     .foot {
-      position: fixed;
+      position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
@@ -242,6 +260,17 @@ export default {
         text-align: center;
       }
     }
+  }
+
+  .coupon-next {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 12;
+    background-color: #f5f5f5;
+    padding-top: 0.46rem;
   }
 
   .router-fade-enter-active,
