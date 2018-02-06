@@ -51,15 +51,24 @@
             </div>
           </div>
           <div class="foot">
-            <div>兑换红包</div>
-            <div>推荐有奖</div>
+            <div @click="exchange">兑换红包</div>
+            <div @click="commend">推荐有奖</div>
           </div>
         </scroll>
       </section>
     </transition>
     <transition name="router-fade">
-      <section v-if="categoryType==1">
-        
+      <section v-if="categoryType==1" class="chit">
+        <header>
+          <router-link to="/coupon/chit" class="enterChit">
+            <img src="../../assets/img/description.png" alt="">
+            <span>商家代金券说明</span>
+          </router-link>
+        </header>
+        <div class="no-log">
+          <img src="../../assets/img/voucher.png" alt="">
+          <div>无法使用代金券</div>
+        </div>
       </section>
     </transition>
     <transition name="router-slid" mode="out-in">
@@ -107,6 +116,12 @@ export default {
     },
     lookhb() {
       this.$router.push({ path: "/coupon/historyhb" });
+    },
+    commend() {
+      this.$router.push({ path: "/coupon/commend" });
+    },
+    exchange() {
+      this.$router.push({ path: "/coupon/exchange" });
     }
   },
   components: {
@@ -258,6 +273,43 @@ export default {
         .sc(0.14rem, #555);
         padding: 0.2rem 0;
         text-align: center;
+      }
+    }
+  }
+
+  .chit {
+    flex: 1;
+    header {
+      .flex(flex-end);
+      align-items: center;
+      padding: 0.1rem;
+      .sc(0.14rem, #666);
+      .enterChit {
+        .flex();
+        align-items: center;
+        img {
+          .wh(15px, 15px);
+          margin-right: 0.1rem;
+        }
+        span {
+          color: @blue;
+        }
+      }
+    }
+    .no-log {
+      .flex();
+      flex-direction: column;
+      align-items: center;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      img {
+        .wh(1.4rem, 0.8rem);
+      }
+      div {
+        margin-top: 0.1rem;
+        .sc(0.16rem, #666);
       }
     }
   }

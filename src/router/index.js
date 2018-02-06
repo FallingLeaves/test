@@ -148,6 +148,12 @@ const Balance = r =>
     () => require("../components/balance/balance.vue"),
     "group-balance"
   );
+const BalanceDetail = r =>
+  require.ensure(
+    [],
+    () => require("../components/balance/children/detail.vue"),
+    "group-balance"
+  );
 // import Coupon from "@/components/coupon/coupon"
 const Coupon = r =>
   require.ensure(
@@ -169,13 +175,36 @@ const CouponHistory = r =>
     () => require("../components/coupon/children/historyhb.vue"),
     "group-coupon"
   );
+const CouponChit = r =>
+  require.ensure(
+    [],
+    () => require("../components/coupon/children/chit.vue"),
+    "group-coupon"
+  );
+const CouponExchange = r =>
+  require.ensure(
+    [],
+    () => require("../components/coupon/children/exchange.vue"),
+    "group-coupon"
+  );
+const CouponCommend = r =>
+  require.ensure(
+    [],
+    () => require("../components/coupon/children/commend.vue"),
+    "group-coupon"
+  );
 const Points = r =>
   require.ensure(
     [],
     () => require("../components/points/points.vue"),
     "group-points"
   );
-
+const PointsDetail = r =>
+  require.ensure(
+    [],
+    () => require("../components/points/children/detail.vue"),
+    "group-points"
+  );
 Vue.use(Router);
 
 export default new Router({
@@ -279,7 +308,13 @@ export default new Router({
     },
     {
       path: "/balance",
-      component: Balance
+      component: Balance,
+      children: [
+        {
+          path: "detail",
+          component: BalanceDetail
+        }
+      ]
     },
     {
       path: "/coupon",
@@ -292,12 +327,30 @@ export default new Router({
         {
           path: "historyhb",
           component: CouponHistory
+        },
+        {
+          path: "chit",
+          component: CouponChit
+        },
+        {
+          path: "exchange",
+          component: CouponExchange
+        },
+        {
+          path: "commend",
+          component: CouponCommend
         }
       ]
     },
     {
       path: "/points",
-      component: Points
+      component: Points,
+      children: [
+        {
+          path: "detail",
+          component: PointsDetail
+        }
+      ]
     }
   ]
 });

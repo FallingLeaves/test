@@ -21,13 +21,13 @@
       <div>暂无明细记录</div>
     </div>
     <transition name="router-slid" mode="out-in">
-      <router-view></router-view>
+      <router-view class="balance-next"></router-view>
     </transition>
   </div>
 </template>
 
 <script>
-import myHeader from "@/components/header/header"
+import myHeader from "@/components/header/header";
 export default {
   data() {
     return {
@@ -36,12 +36,12 @@ export default {
       isLogin: false,
       title: "我的余额",
       count: 0.0
-    }
+    };
   },
   components: {
     myHeader
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -103,6 +103,16 @@ export default {
       margin-top: 0.1rem;
       .sc(0.16rem, #666);
     }
+  }
+  .balance-next {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 12;
+    background-color: #f5f5f5;
+    padding-top: 0.46rem;
   }
   .router-slid-enter-active,
   .router-slid-leave-active {
