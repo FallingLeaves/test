@@ -1,21 +1,34 @@
 <template>
-  <div class="info-view" v-if="userInfo">
-    <my-header :title="title" :isSearch="isSearch" :isBack="isBack" :isLogin="isLogin"></my-header>
+  <div class="info-view"
+    v-if="userInfo">
+    <my-header :title="title"
+      :isSearch="isSearch"
+      :isBack="isBack"
+      :isLogin="isLogin"></my-header>
     <div class="user-info">
       <ul>
         <li class="info-item">
-          <input type="file" class="upload-avatar" accept="images/*" @change="changeavatar">
+          <input type="file"
+            class="upload-avatar"
+            accept="images/*"
+            @change="changeavatar">
           <div class="info-iten-name">头像</div>
           <div class="avatar">
-            <img :src="SHOP_IMG_BASE_PATH+userInfo.avatar" alt="" v-if="userInfo.avatar">
-            <img src="../../../assets/img/user.svg" alt="" v-else>
+            <img :src="SHOP_IMG_BASE_PATH+userInfo.avatar"
+              alt=""
+              v-if="userInfo.avatar">
+            <img src="../../../assets/img/user.svg"
+              alt=""
+              v-else>
           </div>
         </li>
-        <li class="info-item" @click="setUsername">
+        <li class="info-item"
+          @click="setUsername">
           <div class="info-iten-name">用户名</div>
           <div class="user-name">{{userInfo.username}}</div>
         </li>
-        <li class="info-item" @click="setAddresses">
+        <li class="info-item"
+          @click="setAddresses">
           <div class="info-iten-name">收货地址</div>
         </li>
       </ul>
@@ -23,7 +36,8 @@
     <p>账号绑定</p>
     <div class="info-item">
       <div class="info-iten-name">
-        <img src="../../../assets/img/mobile.svg" alt="">
+        <img src="../../../assets/img/mobile.svg"
+          alt="">
         <div>手机</div>
       </div>
       <div class="user-name">{{userInfo.mobile}}</div>
@@ -38,18 +52,19 @@
     <div class="quit">
       退出登录
     </div>
-    <transition name="router-slid" mode="out-in">
+    <transition name="router-slid"
+      mode="out-in">
       <router-view></router-view>
     </transition>
   </div>
 </template>
 
 <script>
-import { SHOP_IMG_BASE_PATH } from "@/config/env"
-import { getUserInfo, signout, uploadAvatar } from "@/config/getData"
-import { getStore, removeStore } from "@/config/mUtil"
-import { mapGetters, mapMutations } from "vuex"
-import myHeader from "@/components/header/header"
+import { SHOP_IMG_BASE_PATH } from "@/config/env";
+import { getUserInfo, signout, uploadAvatar } from "@/config/getData";
+import { getStore, removeStore } from "@/config/mUtil";
+import { mapGetters, mapMutations } from "vuex";
+import myHeader from "@/components/header/header";
 export default {
   data() {
     return {
@@ -58,7 +73,7 @@ export default {
       isSearch: false,
       isBack: true,
       isLogin: false
-    }
+    };
   },
   computed: {
     ...mapGetters(["userInfo"])
@@ -66,13 +81,13 @@ export default {
   created() {},
   methods: {
     async changeavatar(e) {
-      let file = e.target.files[0]
+      let file = e.target.files[0];
       if (!file.type.match("image.*")) {
-        console.log("请上传图片")
-        return
+        console.log("请上传图片");
+        return;
       }
-      let data = new FormData()
-      data.append("file", file)
+      let data = new FormData();
+      data.append("file", file);
       let response = await fetch(
         "http://cangdu.org:8001/eus/v1/users/" +
           this.userInfo.user_id +
@@ -82,17 +97,17 @@ export default {
           credentials: "include",
           body: data
         }
-      )
-      let res = await response.json()
+      );
+      let res = await response.json();
       if (res.status == 1) {
-        this.resetAvatar(res.image_path)
+        this.resetAvatar(res.image_path);
       }
     },
     setUsername() {
-      this.$router.push({ path: "/profile/info/setusername" })
+      this.$router.push({ path: "/profile/info/setusername" });
     },
     setAddresses() {
-      this.$router.push({ path: "/profile/info/setAddresses" })
+      this.$router.push({ path: "/profile/info/addresses" });
     },
     ...mapMutations({
       resetAvatar: "RESET_AVATAR"
@@ -101,7 +116,7 @@ export default {
   components: {
     myHeader
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

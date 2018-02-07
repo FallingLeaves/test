@@ -1,57 +1,82 @@
 <template>
   <div class="profile-view">
-    <my-header :title="title" :isSearch="isSearch" :isBack="isBack" :isLogin="isLogin"></my-header>
+    <my-header :title="title"
+      :isSearch="isSearch"
+      :isBack="isBack"
+      :isLogin="isLogin"></my-header>
     <section class="user">
       <div class="avatar">
-        <img :src="SHOP_IMG_BASE_PATH+userInfo.avatar" alt="" v-if="userInfo&&userInfo.user_id">
-        <img src="../../assets/img/user.svg" alt="" v-else>
+        <img :src="SHOP_IMG_BASE_PATH+userInfo.avatar"
+          alt=""
+          v-if="userInfo&&userInfo.user_id">
+        <img src="../../assets/img/user.svg"
+          alt=""
+          v-else>
       </div>
-      <div class="user-info" @click="enterProfile">
+      <div class="user-info"
+        @click="enterProfile">
         <p class="name">{{userName}}</p>
         <p class="mobile">
-          <img src="../../assets/img/mobile.svg" alt="">
+          <img src="../../assets/img/mobile.svg"
+            alt="">
           <span>{{mobile}}</span>
         </p>
       </div>
     </section>
     <section class="info-data">
       <ul>
-        <router-link to="/balance" tag="li" class="info-data-link">
-          <span class="info-data-num"><b>{{balance.toFixed(2)}}</b>元</span>
+        <router-link to="/balance"
+          tag="li"
+          class="info-data-link">
+          <span class="info-data-num">
+            <b>{{balance.toFixed(2)}}</b>元</span>
           <span class="info-data-item">我的余额</span>
         </router-link>
-        <router-link to="/coupon" tag="li" class="info-data-link">
-          <span class="info-data-num"><b>{{count}}</b>个</span>
+        <router-link to="/coupon"
+          tag="li"
+          class="info-data-link">
+          <span class="info-data-num">
+            <b>{{count}}</b>个</span>
           <span class="info-data-item">我的优惠</span>
         </router-link>
-        <router-link to="/points" tag="li" class="info-data-link">
-          <span class="info-data-num"><b>{{integral}}</b>分</span>
+        <router-link to="/points"
+          tag="li"
+          class="info-data-link">
+          <span class="info-data-num">
+            <b>{{integral}}</b>分</span>
           <span class="info-data-item">我的积分</span>
         </router-link>
       </ul>
     </section>
     <div class="user-item">
       <ul>
-        <router-link v-for="(item, index) in userItem" :key="index" :to="item.linkTo" tag="li" class="user-server-item">
-          <img :src="item.icon" alt="">
+        <router-link v-for="(item, index) in userItem"
+          :key="index"
+          :to="item.linkTo"
+          tag="li"
+          class="user-server-item">
+          <img :src="item.icon"
+            alt="">
           <div class="user-server-name">
-            {{item.item}}<span class="arrow"></span>
+            {{item.item}}
+            <span class="arrow"></span>
           </div>
         </router-link>
       </ul>
     </div>
     <tab-bar></tab-bar>
-    <transition name="router-slid" mode="out-in">
+    <transition name="router-slid"
+      mode="out-in">
       <router-view></router-view>
     </transition>
   </div>
 </template>
 
 <script>
-import { SHOP_IMG_BASE_PATH } from "@/config/env"
-import myHeader from "@/components/header/header"
-import TabBar from "@/components/tabBar/tabBar"
-import { mapGetters } from "vuex"
+import { SHOP_IMG_BASE_PATH } from "@/config/env";
+import myHeader from "@/components/header/header";
+import TabBar from "@/components/tabBar/tabBar";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -92,10 +117,10 @@ export default {
           linkTo: "/dowmload"
         }
       ]
-    }
+    };
   },
   created() {
-    this.initUserInfo()
+    this.initUserInfo();
   },
   mounted() {},
   computed: {
@@ -104,24 +129,24 @@ export default {
   methods: {
     initUserInfo() {
       if (this.userInfo && this.userInfo.user_id) {
-        this.userName = this.userInfo.username
-        this.mobile = this.userInfo.mobile || "暂无绑定手机号"
-        this.balance = this.userInfo.balance
-        this.count = this.userInfo.gift_amount
-        this.integral = this.userInfo.point
+        this.userName = this.userInfo.username;
+        this.mobile = this.userInfo.mobile || "暂无绑定手机号";
+        this.balance = this.userInfo.balance;
+        this.count = this.userInfo.gift_amount;
+        this.integral = this.userInfo.point;
       } else {
-        this.userName = "登录/注册"
-        this.mobile = "暂无绑定手机号"
-        this.balance = 0
-        this.count = 0
-        this.integral = 0
+        this.userName = "登录/注册";
+        this.mobile = "暂无绑定手机号";
+        this.balance = 0;
+        this.count = 0;
+        this.integral = 0;
       }
     },
     enterProfile() {
       if (this.userInfo && this.userInfo.user_id) {
-        this.$router.push({ path: "/profile/info" })
+        this.$router.push({ path: "/profile/info" });
       } else {
-        this.$router.push({ path: "/login" })
+        this.$router.push({ path: "/login" });
       }
     }
   },
@@ -132,18 +157,19 @@ export default {
   watch: {
     userInfo: {
       handler() {
-        this.initUserInfo()
+        this.initUserInfo();
       },
       deep: true
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
 @import "../../style/mixin.less";
 .profile-view {
   padding-top: 0.46rem;
+  overflow: hidden;
   .user {
     background-color: @blue;
     padding: 0.1rem;

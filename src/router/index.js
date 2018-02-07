@@ -112,6 +112,12 @@ const SetAddresses = r =>
     () => require("../components/profile/children/children/setAddresses.vue"),
     "group-profile"
   );
+const AddAddress = r =>
+  require.ensure(
+    [],
+    () => require("../components/profile/children/children/addAddress.vue"),
+    "group-profile"
+  );
 // import QuestionDetail from "@/components/profile/children/children/questionDetail"
 const QuestionDetail = r =>
   require.ensure(
@@ -251,8 +257,14 @@ export default new Router({
               component: SetUsername
             },
             {
-              path: "setAddresses",
-              component: SetAddresses
+              path: "addresses",
+              component: SetAddresses,
+              children: [
+                {
+                  path: "addAddress",
+                  component: AddAddress
+                }
+              ]
             }
           ]
         },
