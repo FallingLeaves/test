@@ -3,7 +3,7 @@
     <div class="view">
       <shop-top :id="getId"></shop-top>
       <nav>
-        <div v-for="(item, index) in title">
+        <div v-for="(item, index) in title" :key="index">
           <span :class="{active:currentIndex==index}" @click="choose(index)">{{item}}</span>
         </div>
       </nav>

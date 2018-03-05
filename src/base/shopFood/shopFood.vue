@@ -53,7 +53,8 @@
                            :category="item.name"
                            :packing_fee="food.specfoods[0].packing_fee"
                            :stock="food.specfoods[0].stock"
-                           @shopping="shopping"></buy>
+                           @shopping="shopping"
+                           @showMoveDot="showMoveDot"></buy>
                     </div>
                     <div v-if="food.specifications.length" class="size" @click="chooseSPEC(food, item.name, food.restaurant_id)">
                       选规格
@@ -99,7 +100,8 @@
                 :category="specfood.category"
                 :packing_fee="specfood.specfoods[specIndex].packing_fee"
                 :stock="specfood.specfoods[specIndex].stock"
-                @shopping="shopping"></buy>
+                @shopping="shopping"
+                @showMoveDot="showMoveDot"></buy>
         </footer>
       </section>
     </div>
@@ -108,6 +110,7 @@
         <div class="img" @click="showBuycart">
           <img src="../../assets/img/nobuy.svg" alt="" v-if="!buycart.length">
           <img src="../../assets/img/isbuy.svg" alt="" v-if="buycart.length">
+          <img src="../../assets/img/add.svg" alt="" class="dot" ref="dot">
         </div>
         <p>¥{{total.toFixed(2)}}</p>
         <div>配送费¥{{float_delivery_fee}}</div>
@@ -145,7 +148,8 @@
                       :category="item.name"
                       :packing_fee="item.packing_fee"
                       :stock="item.stock"
-                      @shopping="shopping"></buy>
+                      @shopping="shopping"
+                      @showMoveDot="showMoveDot"></buy>
                 </div>
               </li>
             </ul>
@@ -188,13 +192,15 @@ export default {
       float_delivery_fee: 0, //配送费
       total: 0,
       buycart: [],
-      showCart: false
+      showCart: false,
+      elLeft: 0,
+      elBottom: 0
     }
   },
   computed: {
-    getBuyFoodList() {
-      return this.$store.getters.buyFoodList
-    }
+    // getBuyFoodList() {
+    //   return this.$store.getters.buyFoodList
+    // }
   },
   created() {
     this.getFoodList()
@@ -305,7 +311,7 @@ export default {
       this.show = false
     },
     showBuycart() {
-      console.log(this.$refs.buycart.clientHeight)
+      // console.log(this.$refs.buycart.clientHeight)
       if (this.buycart.length) {
         this.showCart = !this.showCart
       } else {
@@ -316,6 +322,20 @@ export default {
       this.buycart = []
       this.clearBuyFoodList(this.id)
       this.setCarttime(new Date())
+    },
+    showMoveDot(elLeft, elBottom) {
+      this.elLeft = elLeft
+      this.elBottom = elBottom
+      this.$refs.dot.style.transition = 'left 0s, bottom 0s'
+      this.$refs.dot.style.left = this.elLeft + "px"
+      this.$refs.dot.style.bottom = window.innerHeight - this.elBottom + "px"
+      this.$refs.dot.style.opacity = 1
+      setTimeout(() => {
+        this.$refs.dot.style.transition = 'left 1s linear, bottom 1s ease-in'
+        this.$refs.dot.style.left =".4rem"
+        this.$refs.dot.style.bottom = ".3rem"
+        this.$refs.dot.style.opacity = 1
+      }, 0);
     },
     ...mapMutations({
       clearBuyFoodList: "CLEAR_BUYFOODLIST",
@@ -602,6 +622,15 @@ footer.buycart {
         left: 0.2rem;
         top: -0.2rem;
         z-index: 1;
+        .dot {
+          position: fixed;
+          left: .4rem;
+          bottom: .3rem;
+          .wh(0.2rem, 0.2rem);
+          .border-radius(50%);
+          opacity: 0;
+          transition: left 1s linear, top 1s ease-in;
+        }
       }
     }
     &:nth-of-type(2) {

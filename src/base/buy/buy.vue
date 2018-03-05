@@ -1,5 +1,5 @@
 <template>
-  <div class="buy">
+  <div class="buycart" ref="cart">
     <img src="../../assets/img/reduce.svg" alt="" @click="reduce" v-if="num>0||show">
     <input type="number" id="" v-model.number="num" v-if="num>0||show">
     <img src="../../assets/img/add.svg" alt="" @click="add">
@@ -52,7 +52,9 @@ export default {
     return {
       num: 0,
       show: false,
-      food: {}
+      food: {},
+      elLeft: 0,
+      elBottom: 0
     }
   },
   computed: {
@@ -75,9 +77,14 @@ export default {
         this.show = false
       }
     },
-    add() {
-      this.show = true
+    add(e) {
+      // this.show = true
       this.num = Number(this.num) + 1
+      let elLeft = e.target.getBoundingClientRect().left
+      let elBottom = e.target.getBoundingClientRect().bottom
+      this.elLeft = elLeft
+      this.elBottom = elBottom
+      this.$emit('showMoveDot', elLeft, elBottom)
     },
     initFood() {
       this.food = {
@@ -125,11 +132,14 @@ export default {
     })
   },
   watch: {
-    num(newVal) {
+    num(newVal, oldVal) {
       if (newVal > 0) {
         this.show = true
       } else {
         this.show = false
+      }
+      if(newVal > oldVal) {
+        // this.$emit('showMoveDot', this.elLeft)
       }
       this.initFood()
       this.initNum()
@@ -153,7 +163,7 @@ export default {
 
 <style lang="less" scoped>
 @import "../../style/mixin.less";
-.buy {
+.buycart {
   .flex();
   align-items: center;
   img {
